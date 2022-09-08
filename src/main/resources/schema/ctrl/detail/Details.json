@@ -1,0 +1,484 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Type": {
+      "type": "string"
+    },
+    "Document": {
+      "type": "string"
+    },
+    "Ligne": {
+      "type": "string"
+    },
+    "Projet": {
+      "type": "string"
+    },
+    "Activite": {
+      "type": "string"
+    },
+    "Extra": {
+      "type": "string"
+    },
+    "Equipement": {
+      "type": "string"
+    },
+    "CategorieCout": {
+      "type": "string"
+    },
+    "TravauxCours": {
+      "type": "string"
+    },
+    "Division": {
+      "type": "string"
+    },
+    "Item": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "string"
+    },
+    "Entrepot": {
+      "type": "string"
+    },
+    "Transaction1Serie": {
+      "type": "string"
+    },
+    "Transaction1Quantite": {
+      "type": "string"
+    },
+    "Transaction1Unite": {
+      "type": "string"
+    },
+    "Transaction2Quantite": {
+      "type": "string"
+    },
+    "Transaction2Unite": {
+      "type": "string"
+    },
+    "PrixUnitaireTransaction1": {
+      "type": "string"
+    },
+    "EscompteTransaction1": {
+      "type": "string"
+    },
+    "SousTotalApresEscompteTransaction1": {
+      "type": "string"
+    },
+    "Taxe1Transaction1": {
+      "type": "string"
+    },
+    "Taxe2Transaction1": {
+      "type": "string"
+    },
+    "GrandTotalTransaction1": {
+      "type": "string"
+    },
+    "PrixUnitaireTransaction2": {
+      "type": "string"
+    },
+    "EscompteTransaction2": {
+      "type": "string"
+    },
+    "SousTotalApresEscompteTransaction2": {
+      "type": "string"
+    },
+    "Taxe1Transaction2": {
+      "type": "string"
+    },
+    "Taxe2Transaction2": {
+      "type": "string"
+    },
+    "GrandTotalTransaction2": {
+      "type": "string"
+    },
+    "Statut": {
+      "type": "string"
+    },
+    "QuantiteSuspend": {
+      "type": "string"
+    },
+    "CodeTaxe1": {
+      "type": "string"
+    },
+    "CodeTaxe2": {
+      "type": "string"
+    },
+    "DescriptionLigne": {
+      "type": "string"
+    },
+    "MontantRetenuetaxesApresRetenueTransaction2": {
+      "type": "string"
+    },
+    "MontantRetenuetaxesApresRetenueTransaction1": {
+      "type": "string"
+    },
+    "NoPiece": {
+      "type": "string"
+    },
+    "QuantiteDejaTraitee": {
+      "type": "string"
+    },
+    "QuantiteAnnulee": {
+      "type": "string"
+    },
+    "MontantDejaTraite": {
+      "type": "string"
+    },
+    "MontantSuspens": {
+      "type": "string"
+    },
+    "MontantAnnule": {
+      "type": "string"
+    },
+    "DateLivraison": {
+      "type": "string"
+    },
+    "PourcentageRetenuetaxesApresRetenueTransaction1": {
+      "type": "string"
+    },
+    "PourcentageRetenuetaxesAvantRetenueTransaction1": {
+      "type": "string"
+    },
+    "MontantRetenuetaxesAvantRetenueTransaction1": {
+      "type": "string"
+    },
+    "PourcentageRetenuetaxesApresRetenueTransaction2": {
+      "type": "string"
+    },
+    "PourcentageRetenuetaxesAvantRetenueTransaction2": {
+      "type": "string"
+    },
+    "MontantRetenuetaxesAvantRetenueTransaction2": {
+      "type": "string"
+    },
+    "PourcentageEscompteTransaction1": {
+      "type": "string"
+    },
+    "PourcentageEscompteTransaction2": {
+      "type": "string"
+    },
+    "SousTotalAvantAjustementTransaction1": {
+      "type": "string"
+    },
+    "SousTotalAvantAjustementTransaction2": {
+      "type": "string"
+    },
+    "Reference1": {
+      "type": "string"
+    },
+    "Reference2": {
+      "type": "string"
+    },
+    "Reference3": {
+      "type": "string"
+    },
+    "CodeTaxe1Transaction2": {
+      "type": "string"
+    },
+    "CodeTaxe2Transaction2": {
+      "type": "string"
+    },
+    "Transaction1QuantiteMaitre": {
+      "type": "string"
+    },
+    "Transaction1MontantMaitre": {
+      "type": "string"
+    },
+    "QuantiteDejaTraiteeMaitre": {
+      "type": "string"
+    },
+    "MontantDejaTraiteMaitre": {
+      "type": "string"
+    },
+    "QuantiteSuspendMaitre": {
+      "type": "string"
+    },
+    "MontantSuspendMaitre": {
+      "type": "string"
+    },
+    "QuantiteAnnuleeMaitre": {
+      "type": "string"
+    },
+    "MontantAnnuleMaitre": {
+      "type": "string"
+    },
+    "Compagnie": {
+      "type": "string"
+    },
+    "Ordre": {
+      "type": "string"
+    },
+    "LigneGeneree": {
+      "type": "string"
+    },
+    "DossierPatient": {
+      "type": "string"
+    },
+    "Commentaire": {
+      "type": "string"
+    },
+    "Transaction2Serie": {
+      "type": "string"
+    },
+    "SerieTraites": {
+      "type": "string"
+    },
+    "MontantArrondiAjustement": {
+      "type": "string"
+    },
+    "MontantArrondiRetenuetaxesApresRetenue": {
+      "type": "string"
+    },
+    "MontantArrondiRetenuetaxesAvantRetenue": {
+      "type": "string"
+    },
+    "Modalite": {
+      "type": "string"
+    },
+    "NumeroDepot": {
+      "type": "string"
+    },
+    "LigneDocumentMaitre": {
+      "type": "string"
+    },
+    "NumeroFactureAvance": {
+      "type": "string"
+    },
+    "FrequenceInitialeDescription": {
+      "type": "string"
+    },
+    "FrequenceInitialeQuantite": {
+      "type": "string"
+    },
+    "FrequenceInitialeUnite": {
+      "type": "string"
+    },
+    "FrequenceInitialePrixUnitaire": {
+      "type": "string"
+    },
+    "FrequenceInitialePeriode": {
+      "type": "string"
+    },
+    "FrequenceInitialeFrequence": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDescription": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueQuantite": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueUnite": {
+      "type": "string"
+    },
+    "FrequencePeriodiquePrixUnitaire": {
+      "type": "string"
+    },
+    "FrequencePeriodiquePeriode": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueFrequence": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueNombre": {
+      "type": "string"
+    },
+    "FrequenceFinaleDescription": {
+      "type": "string"
+    },
+    "FrequenceFinaleQuantite": {
+      "type": "string"
+    },
+    "FrequenceFinaleUnite": {
+      "type": "string"
+    },
+    "FrequenceFinalePrixUnitaire": {
+      "type": "string"
+    },
+    "FrequenceMaximumQuantite": {
+      "type": "string"
+    },
+    "FrequenceMaximumUnite": {
+      "type": "string"
+    },
+    "FrequenceMaximumMontant": {
+      "type": "string"
+    },
+    "FrequenceInititaleDateDebut": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDateDebut": {
+      "type": "string"
+    },
+    "DateDebutFrequence": {
+      "type": "string"
+    },
+    "DateFinFrequence": {
+      "type": "string"
+    },
+    "GestionQuantites": {
+      "type": "string"
+    },
+    "MontantRetenueretenueApresTaxesTransaction1": {
+      "type": "string"
+    },
+    "MontantRetenueretenueApresTaxesTransaction2": {
+      "type": "string"
+    },
+    "PourcentageRetenueRetenueApresTaxesTransaction1": {
+      "type": "string"
+    },
+    "PourcentageRetenueRetenueApresTaxesTransaction2": {
+      "type": "string"
+    },
+    "MontantArrondiRetenueretenueApresTaxes": {
+      "type": "string"
+    },
+    "IdentifiantUnique": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitDescription": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitQuantite": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitUnite": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitPrixUnitaire": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitPeriode": {
+      "type": "string"
+    },
+    "FrequenceInitialeDefautDocumentProduitFrequence": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitDescription": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitQuantite": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitUnite": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitPrixUnitair": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitPeriode": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitFrequence": {
+      "type": "string"
+    },
+    "FrequencePeriodiqueDefautDocumentProduitNombre": {
+      "type": "string"
+    },
+    "FrequenceFinaleDefautDocumentProduitDescription": {
+      "type": "string"
+    },
+    "FrequenceFinaleDefautDocumentProduitQuantite": {
+      "type": "string"
+    },
+    "FrequenceFinaleDefautDocumentProduitUnite": {
+      "type": "string"
+    },
+    "FrequenceFinaleDefautDocumentProduitPrixUnitaire": {
+      "type": "string"
+    },
+    "FrequenceModalite": {
+      "type": "string"
+    },
+    "CTITaxe1Transaction1": {
+      "type": "string"
+    },
+    "CTITaxe2Transaction1": {
+      "type": "string"
+    },
+    "CTITaxe1Transaction2": {
+      "type": "string"
+    },
+    "CTITaxe2Transaction2": {
+      "type": "string"
+    },
+    "LigneItemMaitreListeMateriel": {
+      "type": "string"
+    },
+    "CodeCatalogue": {
+      "type": "string"
+    },
+    "CodeFabricant": {
+      "type": "string"
+    },
+    "PieceFabricant": {
+      "type": "string"
+    },
+    "TransactionSousTraitance": {
+      "type": "string"
+    },
+    "VersionRecord": {
+      "type": "string"
+    },
+    "TimestampDerniereSauvegarde": {
+      "type": "string"
+    },
+    "TypeDocumentMaitre": {
+      "type": "string"
+    },
+    "DocumentMaitre": {
+      "type": "string"
+    },
+    "Majoration1Transaction1": {
+      "type": "string"
+    },
+    "Majoration2Transaction1": {
+      "type": "string"
+    },
+    "Majoration1Transaction2": {
+      "type": "string"
+    },
+    "Majoration2Transaction2": {
+      "type": "string"
+    },
+    "PourcMajoration1Transaction1": {
+      "type": "string"
+    },
+    "PourcMajoration2Transaction1": {
+      "type": "string"
+    },
+    "PourcMajoration1Transaction2": {
+      "type": "string"
+    },
+    "PourcMajoration2Transaction2": {
+      "type": "string"
+    },
+    "NiveauApplicationMajoration1": {
+      "type": "string"
+    },
+    "NiveauApplicationMajoration2": {
+      "type": "string"
+    },
+    "CategorieVendant": {
+      "type": "string"
+    },
+    "VentilationMaitre": {
+      "type": "string"
+    },
+    "PourcentageAvancement": {
+      "type": "string"
+    },
+    "PourcentageAvancementLivraison": {
+      "type": "string"
+    },
+    "TypeVentilation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Type",
+    "Document"
+  ]
+}

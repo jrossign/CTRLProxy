@@ -1,0 +1,387 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Type": {
+      "type": "string"
+    },
+    "Document": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "DocumentMaitre": {
+      "type": "string"
+    },
+    "TypeDocumentMaitre": {
+      "type": "string"
+    },
+    "Intervenant": {
+      "type": "string"
+    },
+    "NomIntervenant": {
+      "type": "string"
+    },
+    "Statut": {
+      "type": "string"
+    },
+    "DateDocument": {
+      "type": "string"
+    },
+    "DateCreation": {
+      "type": "string"
+    },
+    "UsagerResponsable": {
+      "type": "string"
+    },
+    "UsagerInscripteur": {
+      "type": "string"
+    },
+    "DateModification": {
+      "type": "string"
+    },
+    "UsagerModificateur": {
+      "type": "string"
+    },
+    "Reference1": {
+      "type": "string"
+    },
+    "Reference2": {
+      "type": "string"
+    },
+    "Contact": {
+      "type": "string"
+    },
+    "Territoire": {
+      "type": "string"
+    },
+    "LivraisonTransporteur": {
+      "type": "string"
+    },
+    "LivraisonDateFin": {
+      "type": "string"
+    },
+    "CommentaireGeneral": {
+      "type": "string"
+    },
+    "RetenueCommande": {
+      "type": "string",
+      "default": "N"
+    },
+    "TypeRetenue": {
+      "type": "string",
+      "default": "N"
+    },
+    "Conditions": {
+      "type": "string"
+    },
+    "AdresseLivraison": {
+      "type": "string"
+    },
+    "VilleLivraison": {
+      "type": "string"
+    },
+    "ProvinceLivraison": {
+      "type": "string"
+    },
+    "CodePostal": {
+      "type": "string"
+    },
+    "AdresseFacturation": {
+      "type": "string"
+    },
+    "VilleFacturation": {
+      "type": "string"
+    },
+    "ProvinceFacturation": {
+      "type": "string"
+    },
+    "CodePostalFacturation": {
+      "type": "string"
+    },
+    "CompagnieSource": {
+      "type": "string"
+    },
+    "CompagnieDestination": {
+      "type": "string"
+    },
+    "FrequenceFacturation": {
+      "type": "string"
+    },
+    "DateDebutFrequence": {
+      "type": "string"
+    },
+    "Devise": {
+      "type": "string"
+    },
+    "SousTotal": {
+      "type": "string"
+    },
+    "MontantAjustement": {
+      "type": "string"
+    },
+    "MontantTaxe1": {
+      "type": "string"
+    },
+    "MontantTaxe2": {
+      "type": "string"
+    },
+    "LivraisonDateDebut": {
+      "type": "string"
+    },
+    "AdresseLivraisonLigne2": {
+      "type": "string"
+    },
+    "PaysLivraison": {
+      "type": "string"
+    },
+    "AdresseFacturationLigne2": {
+      "type": "string"
+    },
+    "PaysFacturation": {
+      "type": "string"
+    },
+    "DateDerniereImpression": {
+      "type": "string"
+    },
+    "LangueIntervenant": {
+      "type": "string"
+    },
+    "Facture": {
+      "type": "string"
+    },
+    "Prefixe": {
+      "type": "string"
+    },
+    "DateFacture": {
+      "type": "string"
+    },
+    "MontantRetenue": {
+      "type": "string"
+    },
+    "FrequencePeriode": {
+      "type": "string"
+    },
+    "DateFinFrequence": {
+      "type": "string"
+    },
+    "DatePremiereFrequence": {
+      "type": "string"
+    },
+    "SousTotalTransaction2": {
+      "type": "string"
+    },
+    "MontantAjustementTransaction2": {
+      "type": "string"
+    },
+    "MontantTaxe1Transaction2": {
+      "type": "string"
+    },
+    "MontantTaxe2Transaction2": {
+      "type": "string"
+    },
+    "MontantRetenueTransaction2": {
+      "type": "string"
+    },
+    "MontantDejaTraiteMaitre": {
+      "type": "string"
+    },
+    "ImpressionSommaire": {
+      "type": "string"
+    },
+    "Reference3": {
+      "type": "string"
+    },
+    "Reference4": {
+      "type": "string"
+    },
+    "Reference5": {
+      "type": "string"
+    },
+    "FrequenceDescription": {
+      "type": "string"
+    },
+    "Description2": {
+      "type": "string"
+    },
+    "DossierFacturation": {
+      "type": "string"
+    },
+    "DescriptionFacturation": {
+      "type": "string"
+    },
+    "Description2Facturation": {
+      "type": "string"
+    },
+    "ContactFacturation": {
+      "type": "string"
+    },
+    "DossierLivraison": {
+      "type": "string"
+    },
+    "DescriptionLivraison": {
+      "type": "string"
+    },
+    "Description2Livraison": {
+      "type": "string"
+    },
+    "ContactLivraison": {
+      "type": "string"
+    },
+    "SousTotalDejaTraiteMaitre": {
+      "type": "string"
+    },
+    "MontantSuspens": {
+      "type": "string"
+    },
+    "TypeDocumentEngagement": {
+      "type": "string"
+    },
+    "DocumentEngagement": {
+      "type": "string"
+    },
+    "IdentifiantUnique": {
+      "type": "string"
+    },
+    "LivraisonDateDebutReelle": {
+      "type": "string"
+    },
+    "LivraisonDateReelle": {
+      "type": "string"
+    },
+    "FrequenceImpressionDescription": {
+      "type": "string"
+    },
+    "FrequenceImpressionPeriode": {
+      "type": "string"
+    },
+    "FrequenceImpression": {
+      "type": "string"
+    },
+    "DateDebutDerniereImpression": {
+      "type": "string"
+    },
+    "DateFinDerniereImpression": {
+      "type": "string"
+    },
+    "DatePremiereImpression": {
+      "type": "string"
+    },
+    "DateDenonciation": {
+      "type": "string"
+    },
+    "MontantDenonce": {
+      "type": "string"
+    },
+    "QuittanceRecue": {
+      "type": "string"
+    },
+    "QuittanceRecevoir": {
+      "type": "string"
+    },
+    "MiseJour": {
+      "type": "string"
+    },
+    "TelephoneContact": {
+      "type": "string"
+    },
+    "TelephoneFacturation": {
+      "type": "string"
+    },
+    "TelephoneLivraison": {
+      "type": "string"
+    },
+    "TypeIntervenant": {
+      "type": "string"
+    },
+    "TypeIntervenantFacturation": {
+      "type": "string"
+    },
+    "TypeIntervenantLivraison": {
+      "type": "string"
+    },
+    "CompagnieIntervenant": {
+      "type": "string"
+    },
+    "CompagnieIntervenantFacturation": {
+      "type": "string"
+    },
+    "CompagnieIntervenantLivraison": {
+      "type": "string"
+    },
+    "CompagnieLiee": {
+      "type": "string"
+    },
+    "Consolidation": {
+      "type": "string"
+    },
+    "Reference6": {
+      "type": "string"
+    },
+    "Reference7": {
+      "type": "string"
+    },
+    "Reference8": {
+      "type": "string"
+    },
+    "Reference9": {
+      "type": "string"
+    },
+    "Reference10": {
+      "type": "string"
+    },
+    "Reference11": {
+      "type": "string"
+    },
+    "Reference12": {
+      "type": "string"
+    },
+    "Reference13": {
+      "type": "string"
+    },
+    "Reference14": {
+      "type": "string"
+    },
+    "Reference15": {
+      "type": "string"
+    },
+    "Succursale": {
+      "type": "string"
+    },
+    "VersionRecord": {
+      "type": "string"
+    },
+    "TimestampDerniereSauvegarde": {
+      "type": "string"
+    },
+    "Projet": {
+      "type": "string"
+    },
+    "TypeGeneration": {
+      "type": "string"
+    },
+    "RevisionDocument": {
+      "type": "string"
+    },
+    "NuméroFactureATraiter": {
+      "type": "string"
+    },
+    "DateFactureATraiter": {
+      "type": "string"
+    },
+    "DateTransactionFactureATraiter": {
+      "type": "string"
+    },
+    "DateDebutDocument": {
+      "type": "string"
+    },
+    "DateFinDocument": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Type",
+    "Document"
+  ]
+}

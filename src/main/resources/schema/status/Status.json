@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Status",
+  "definitions": {
+    "Status": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "webservice": {
+          "type": "string",
+          "format": "integer"
+        },
+        "status": {
+          "type": "string",
+          "format": "integer"
+        },
+        "messageHeader": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message"
+          }
+        },
+        "messageItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageItem"
+          }
+        }
+      },
+      "required": [
+        "messageHeader",
+        "messageItem",
+        "status",
+        "webservice"
+      ],
+      "title": "Status"
+    },
+    "Message": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "type"
+      ],
+      "title": "Message"
+    },
+    "MessageItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "objkyInt": {
+          "type": "string",
+          "format": "integer"
+        },
+        "objkyExt": {
+          "type": "string",
+          "format": "integer"
+        },
+        "status": {
+          "type": "string",
+          "format": "integer"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message"
+          }
+        }
+      },
+      "required": [
+        "messages",
+        "objkyExt",
+        "objkyInt",
+        "status"
+      ],
+      "title": "MessageItem"
+    }
+  }
+}

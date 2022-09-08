@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id("jsonschema2pojo")
+}
+apply plugin: 'jsonschema2pojo'
+
+
+group = 'com.ipc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'com.google.code.gson:gson'
+    implementation 'org.jsonschema2pojo:jsonschema2pojo-core:1.1.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.h2database:h2'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0") {
+        exclude group:"com.squareup.okhttp3", module:"okhttp"
+    }
+    testImplementation("com.squareup.okhttp3:okhttp:4.9.0")
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jsonSchema2Pojo {
+    targetDirectory = file("$projectDir/build/generated/sources/js2p/java/main")
+    targetPackage = "com.ipc.ctrlproxy.model"
+    generateBuilders = true
+    includeAdditionalProperties = true
+    setSource(files("$projectDir/src/main/resources/schema"))
+    customAnnotator = "io.github.paulushcgcj.js2pojo.LombokAnnotator"
+    //setAnnotationStyle("none")
+}

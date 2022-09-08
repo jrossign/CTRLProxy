@@ -1,0 +1,256 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/PurchaseOrder"
+  },
+  "definitions": {
+    "PurchaseOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Company": {
+          "type": "string"
+        },
+        "Division": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Purchasing_Organization": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Number": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Project": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Supplier": {
+          "type": "string"
+        },
+        "Action_Type": {
+          "type": "string"
+        },
+        "Order_Date": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Delivery_Date": {
+          "type": "string"
+        },
+        "Currency": {
+          "type": "string"
+        },
+        "Employee": {
+          "type": "string"
+        },
+        "Referency": {
+          "type": "string"
+        },
+        "Comment": {
+          "type": "string"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "required": [
+        "Action_Type",
+        "Comment",
+        "Company",
+        "Currency",
+        "Delivery_Date",
+        "Division",
+        "Employee",
+        "Items",
+        "Number",
+        "Order_Date",
+        "Project",
+        "Purchasing_Organization",
+        "Referency",
+        "Supplier"
+      ],
+      "title": "PurchaseOrder"
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ProductItem": {
+          "$ref": "#/definitions/ProductItem"
+        },
+        "Order_Line": {
+          "type": "integer"
+        },
+        "Nesting": {
+          "type": "integer"
+        },
+        "Project": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Unitary_Price": {
+          "type": "number"
+        },
+        "Total_Price": {
+          "type": "number"
+        },
+        "Valuation_Unit": {
+          "$ref": "#/definitions/ValuationUnit"
+        },
+        "Section": {
+          "type": "string"
+        },
+        "Enquiry_Number": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Enquiry_Line": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "Enquiry_Line",
+        "Enquiry_Number",
+        "Nesting",
+        "Order_Line",
+        "ProductItem",
+        "Project",
+        "Section",
+        "Total_Price",
+        "Unitary_Price",
+        "Valuation_Unit"
+      ],
+      "title": "Item"
+    },
+    "ProductItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/Name"
+        },
+        "Code": {
+          "type": "string"
+        },
+        "Profile": {
+          "$ref": "#/definitions/Profile"
+        },
+        "Material": {
+          "$ref": "#/definitions/Material"
+        },
+        "Length": {
+          "$ref": "#/definitions/Length"
+        },
+        "Width": {
+          "$ref": "#/definitions/Length"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Warehouse": {
+          "type": "string"
+        },
+        "Storage": {
+          "type": "string"
+        },
+        "Color": {
+          "type": "string"
+        },
+        "Unit": {
+          "$ref": "#/definitions/Unit"
+        },
+        "Outline": {
+          "type": "string"
+        },
+        "Weight": {
+          "type": "string",
+          "format": "integer"
+        }
+      },
+      "required": [
+        "Code",
+        "Color",
+        "Length",
+        "Material",
+        "Name",
+        "Outline",
+        "Profile",
+        "Quantity",
+        "Storage",
+        "Unit",
+        "Warehouse",
+        "Weight",
+        "Width"
+      ],
+      "title": "ProductItem"
+    },
+    "Length": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "UOM": {
+          "$ref": "#/definitions/Uom"
+        },
+        "Value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "UOM",
+        "Value"
+      ],
+      "title": "Length"
+    },
+    "Uom": {
+      "type": "string",
+      "enum": [
+        "mm"
+      ],
+      "title": "Uom"
+    },
+    "Material": {
+      "type": "string",
+      "enum": [
+        "44W"
+      ],
+      "title": "Material"
+    },
+    "Name": {
+      "type": "string",
+      "enum": [
+        "L2X2X3/16 44W",
+        "L3X2-1/2X5/16 44W"
+      ],
+      "title": "Name"
+    },
+    "Profile": {
+      "type": "string",
+      "enum": [
+        "L2X2X3/16",
+        "L3X2-1/2X5/16"
+      ],
+      "title": "Profile"
+    },
+    "Unit": {
+      "type": "string",
+      "enum": [
+        "po"
+      ],
+      "title": "Unit"
+    },
+    "ValuationUnit": {
+      "type": "string",
+      "enum": [
+        "lb"
+      ],
+      "title": "ValuationUnit"
+    }
+  }
+}

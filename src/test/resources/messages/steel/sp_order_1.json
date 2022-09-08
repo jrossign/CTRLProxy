@@ -1,0 +1,55 @@
+[
+  {
+    "Company":"LAINCO",
+    "Division":"1",
+    "Purchasing_Organization":"1",
+    "Number":"1",
+    "Project":"867",
+    "Supplier":"F00190-Acier Picard",
+    "Action_Type":"N",
+    "Order_Date":"20220607",
+    "Delivery_Date":"",
+    "Currency":"CAD",
+    "Employee":"MATPER",
+    "Referency":"",
+    "Comment":"",
+    "Items":
+    [
+      {
+        "ProductItem":
+        {
+          "Name":"L2X2X3/16 44W",
+          "Code":"",
+          "Profile":"L2X2X3/16",
+          "Material":"44W",
+          "Length":
+          {
+            "UOM":"mm",
+            "Value":6096
+          },
+          "Width":
+          {
+            "UOM":"mm",
+            "Value":0
+          },
+          "Quantity":2,
+          "Warehouse":"",
+          "Storage":"",
+          "Color":"",
+          "Unit":"po",
+          "Outline":"",
+          "Weight":"0"
+        },
+        "Order_Line":1,
+        "Nesting":0,
+        "Project":"867",
+        "Unitary_Price":0.85,
+        "Total_Price":2107.184,
+        "Valuation_Unit":"lb",
+        "Section":"",
+        "Enquiry_Number":"5",
+        "Enquiry_Line":1
+      }
+    ]
+  }
+]
