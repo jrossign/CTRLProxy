@@ -5,6 +5,7 @@ import com.ipc.ctrlproxy.model.ctrl.header.Header;
 import com.ipc.ctrlproxy.model.steel.Item;
 import com.ipc.ctrlproxy.model.steel.SPOrder;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -38,31 +39,32 @@ public class SteelToCTRLTranslator
 
         return Header.builder()
                 .type("BSP")
-                .document("BSP"+order.getNumber())
+                .document("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
                 .description(supplierSuffix)
                 .intervenant(supplierPrefix)
                 .nomIntervenant(supplierSuffix)
                 .statut("ACT")
                 .dateDocument(crtlDate)
-                .dateCreation(crtlDate)
-                .usagerResponsable(order.getEmployee())
+                //.dateCreation(crtlDate) ne peut être modifié
+                // .usagerResponsable(order.getEmployee()) Responsable MATPER : La fiche Responsable MATPER est inexistante dans Ressource
                 .usagerInscripteur("WEBSTP")
-                .dateModification(crtlDate)
-                .usagerModificateur(order.getEmployee())
-                .reference1("BSP"+order.getNumber())
-                .reference2("BSP"+order.getNumber())
+                //.dateModification(crtlDate) ne peut être modifié
+                //.usagerModificateur(order.getEmployee()) ne peut être modifié
+                .reference1("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                .reference2("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
                 .territoire("CA-QC")
-                .commentaireGeneral(order.getComment())
+                .commentaireGeneral(Strings.isBlank(order.getComment())?null:order.getComment())
                 .compagnieSource("001")
                 .compagnieDestination("001")
                 .compagnieLiee("001")
                 .devise(order.getCurrency())
-                .prefixe("BSD")
+                // .prefixe("BSP") ne peut être modifié
                 .dossierFacturation("F00166")
                 .typeDocumentEngagement("BSP")
-                .documentEngagement("BSP"+order.getNumber())
-                .timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
+                .documentEngagement("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                //.timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
                 .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
+
                 .build();
 
     }
@@ -73,18 +75,19 @@ public class SteelToCTRLTranslator
 
             list.add(Details.builder()
                     .type("BSP")
-                    .document("BSP"+order.getNumber())
-                    .ligne(String.valueOf(item.getOrderLine()))
+                    .document("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                    //.ligne(String.valueOf(item.getOrderLine()))
                     .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
                     .transaction1Quantite(String.valueOf(item.getProductItem().getQuantity()))
-                    .transaction1Unite(UNITS.get(item.getValuationUnit()))
+                    //.transaction1Unite(UNITS.get(item.getValuationUnit()))
                     .prixUnitaireTransaction1(item.getUnitaryPrice())
-                    .grandTotalTransaction1(item.getTotalPrice())
-                    .quantiteSuspend("DONT KNOW HOW")
+                    //.grandTotalTransaction1(item.getTotalPrice())
+                    //.quantiteSuspend("DONT KNOW HOW")
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
-                    .ordre(item.getOrderLine())
-                    .timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
+                    .activite("10010")
+                    //.ordre(item.getOrderLine())
+                    //.timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
                     .build());
         }
         return list;

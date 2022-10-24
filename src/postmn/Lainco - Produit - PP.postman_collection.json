@@ -1,0 +1,869 @@
+{
+  "info": {
+    "_postman_id": "22d5e5eb-df33-4b04-8cfc-b45de2605623",
+    "name": "Lainco - Produit - PP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "6343034"
+  },
+  "item": [
+    {
+      "name": "Entete cie 001",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "value": "{{TOKEN-Produit-PP}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete?Company=001&Filter={\"Type\":\"BCA\"}&Field=Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentEntete"
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            },
+            {
+              "key": "Count",
+              "value": "1",
+              "disabled": true
+            },
+            {
+              "key": "Filter",
+              "value": "{\"Type\":\"BCA\"}"
+            },
+            {
+              "key": "Field",
+              "value": "Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens"
+            }
+          ]
+        },
+        "description": "GET pour entête de document"
+      },
+      "response": [
+        {
+          "name": "Entete cie 001",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "value": "{{TOKEN-Produit-PP}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete?Company=001&Filter={\"Type\":\"BCA\"}&Field=Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentEntete"
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                },
+                {
+                  "key": "Count",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "Filter",
+                  "value": "{\"Type\":\"BCA\"}"
+                },
+                {
+                  "key": "Field",
+                  "value": "Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=105278.569454.54647,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "343754.163687.668147"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 14:51:30 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1628"
+            }
+          ],
+          "cookie": [],
+          "body": "[{\"Document\":\"BCA0000002\",\"Intervenant\":\"F00851\",\"NomIntervenant\":\"Groupe Ameublement Focus\",\"Description\":\"Groupe Ameublement Focus - achat de XYZ\",\"Statut\":\"TER\",\"DateDocument\":\"2022-02-01\",\"SousTotal\":\"499.98\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000003\",\"Intervenant\":\"F00011\",\"NomIntervenant\":\"Club de hockey le Blizzard inc\",\"Description\":\"Club de hockey le Blizzard inc\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-01-31\",\"SousTotal\":\"100\",\"MontantSuspens\":\"40\"},{\"Document\":\"BCA0000004\",\"Intervenant\":\"F00007\",\"NomIntervenant\":\"Dowco Consultants Ltd.\",\"Description\":\"Dowco Consultants Ltd.\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-09\",\"SousTotal\":\"101000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000005\",\"Intervenant\":\"F00008\",\"NomIntervenant\":\"Exactdetailing\",\"Description\":\"Exactdetailing\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-03-09\",\"SousTotal\":\"5002\",\"MontantSuspens\":\"5002\"},{\"Document\":\"BCA0000006\",\"Intervenant\":\"F00375\",\"NomIntervenant\":\"Bureau En Gros\",\"Description\":\"Bureau En Gros\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-24\",\"SousTotal\":\"700\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000008\",\"Intervenant\":\"F00375\",\"NomIntervenant\":\"Bureau En Gros\",\"Description\":\"Bureau En Gros\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-24\",\"SousTotal\":\"710\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000007\",\"Intervenant\":\"F00477\",\"NomIntervenant\":\"Concept Bureau\",\"Description\":\"Concept Bureau\",\"Statut\":\"N01\",\"DateDocument\":\"2022-03-24\",\"SousTotal\":\"0\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000009\",\"Intervenant\":\"F00870\",\"NomIntervenant\":\"Groupe Industriel Premium\",\"Description\":\"Groupe Industriel Premium\",\"Statut\":\"NEF\",\"DateDocument\":\"2022-03-31\",\"SousTotal\":\"400000\",\"MontantSuspens\":\"400000\"},{\"Document\":\"BCA0000010\",\"Intervenant\":\"F00870\",\"NomIntervenant\":\"Groupe Industriel Premium\",\"Description\":\"Groupe Industriel Premium\",\"Statut\":\"NEF\",\"DateDocument\":\"2022-03-31\",\"SousTotal\":\"-400000\",\"MontantSuspens\":\"-400000\"},{\"Document\":\"BCA0000011\",\"Intervenant\":\"F00870\",\"NomIntervenant\":\"Groupe Industriel Premium\",\"Description\":\"Groupe Industriel Premium\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-31\",\"SousTotal\":\"39000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000012\",\"Intervenant\":\"F00870\",\"NomIntervenant\":\"Groupe Industriel Premium\",\"Description\":\"Groupe Industriel Premium\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-31\",\"SousTotal\":\"26000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000014\",\"Intervenant\":\"F00260\",\"NomIntervenant\":\"Arc electronique S.L.\",\"Description\":\"Arc electronique S.L.\",\"Statut\":\"TER\",\"DateDocument\":\"2022-03-14\",\"SousTotal\":\"5000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000015\",\"Intervenant\":\"F00771\",\"NomIntervenant\":\"Fourniture de bureau Denis\",\"Description\":\"Fourniture de bureau Denis\",\"Statut\":\"NO2\",\"DateDocument\":\"2022-03-29\",\"SousTotal\":\"251.25\",\"MontantSuspens\":\"251.25\"},{\"Document\":\"BCA0000013\",\"Intervenant\":\"F01288\",\"NomIntervenant\":\"Morency\\/avocat\",\"Description\":\"Morency\\/avocat\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-08\",\"SousTotal\":\"2540\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000016\",\"Intervenant\":\"F01433\",\"NomIntervenant\":\"Price Waterhouse Coopers LLP\",\"Description\":\"Price Waterhouse Coopers LLP\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-15\",\"SousTotal\":\"5000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000017\",\"Intervenant\":\"F01806\",\"NomIntervenant\":\"Xerox Canada Lt\\u00E9e\",\"Description\":\"Xerox Canada Lt\\u00E9e\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-15\",\"SousTotal\":\"750\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000018\",\"Intervenant\":\"F00325\",\"NomIntervenant\":\"Bell Canada\",\"Description\":\"Bell Canada\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-15\",\"SousTotal\":\"475\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000019\",\"Intervenant\":\"F01865\",\"NomIntervenant\":\"Audi Blainville\",\"Description\":\"Audi Blainville\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-16\",\"SousTotal\":\"575.56\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000020\",\"Intervenant\":\"F01806\",\"NomIntervenant\":\"Xerox Canada Lt\\u00E9e\",\"Description\":\"Xerox Canada Lt\\u00E9e\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"805\",\"MontantSuspens\":\"700\"},{\"Document\":\"BCA0000021\",\"Intervenant\":\"F01535\",\"NomIntervenant\":\"SAAQ\",\"Description\":\"SAAQ\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"2500\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000022\",\"Intervenant\":\"F01433\",\"NomIntervenant\":\"Price Waterhouse Coopers LLP\",\"Description\":\"Price Waterhouse Coopers LLP\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"35000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000023\",\"Intervenant\":\"F01293\",\"NomIntervenant\":\"MP2B inc.\",\"Description\":\"MP2B inc.\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"110000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000024\",\"Intervenant\":\"F01788\",\"NomIntervenant\":\"Ville de Terrebonne\",\"Description\":\"Ville de Terrebonne\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"48000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000025\",\"Intervenant\":\"F01788\",\"NomIntervenant\":\"Ville de Terrebonne\",\"Description\":\"Ville de Terrebonne\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"80000\",\"MontantSuspens\":\"60000\"},{\"Document\":\"BCA0000026\",\"Intervenant\":\"F00881\",\"NomIntervenant\":\"Groupe Novitec\",\"Description\":\"Groupe Novitec\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-23\",\"SousTotal\":\"1100\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000027\",\"Intervenant\":\"F01788\",\"NomIntervenant\":\"Ville de Terrebonne\",\"Description\":\"Ville de Terrebonne\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-30\",\"SousTotal\":\"24000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000028\",\"Intervenant\":\"F01456\",\"NomIntervenant\":\"Publiconcept communications\",\"Description\":\"Publiconcept communications\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-30\",\"SousTotal\":\"250\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000029\",\"Intervenant\":\"F00934\",\"NomIntervenant\":\"Hydro-Qu\\u00E9bec\",\"Description\":\"Hydro-Qu\\u00E9bec\",\"Statut\":\"TER\",\"DateDocument\":\"2022-05-02\",\"SousTotal\":\"7745.25\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000030\",\"Intervenant\":\"F01292\",\"NomIntervenant\":\"MP2B assurance\",\"Description\":\"MP2B assurance\",\"Statut\":\"TER\",\"DateDocument\":\"2022-05-31\",\"SousTotal\":\"0\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000031\",\"Intervenant\":\"F01292\",\"NomIntervenant\":\"MP2B assurance\",\"Description\":\"MP2B assurance\",\"Statut\":\"TER\",\"DateDocument\":\"2022-05-31\",\"SousTotal\":\"2600\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000032\",\"Intervenant\":\"F01292\",\"NomIntervenant\":\"MP2B assurance\",\"Description\":\"MP2B assurance\",\"Statut\":\"TER\",\"DateDocument\":\"2022-05-31\",\"SousTotal\":\"2600\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000033\",\"Intervenant\":\"F01841\",\"NomIntervenant\":\"Ficep Corporation\",\"Description\":\"Ficep Corporation\",\"Statut\":\"TER\",\"DateDocument\":\"2022-07-01\",\"SousTotal\":\"1000000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000034\",\"Intervenant\":\"F01784\",\"NomIntervenant\":\"ville d'Amos\",\"Description\":\"ville d'Amos\",\"Statut\":\"TER\",\"DateDocument\":\"2022-07-06\",\"SousTotal\":\"145\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000035\",\"Intervenant\":\"F01388\",\"NomIntervenant\":\"Petro-t \\/ Harnois\",\"Description\":\"Petro-t \\/ Harnois\",\"Statut\":\"TER\",\"DateDocument\":\"2022-07-01\",\"SousTotal\":\"210\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000036\",\"Intervenant\":\"F00571\",\"NomIntervenant\":\"CWB\",\"Description\":\"CWB\",\"Statut\":\"TER\",\"DateDocument\":\"2022-07-01\",\"SousTotal\":\"3500\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000037\",\"Intervenant\":\"F00031\",\"NomIntervenant\":\"Accountemps\",\"Description\":\"Accountemps\",\"Statut\":\"TER\",\"DateDocument\":\"2022-06-15\",\"SousTotal\":\"3000\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000038\",\"Intervenant\":\"F00978\",\"NomIntervenant\":\"Italcaff\\u00E9 Canada inc.\",\"Description\":\"Italcaff\\u00E9 Canada inc.\",\"Statut\":\"TER\",\"DateDocument\":\"2022-07-01\",\"SousTotal\":\"125\",\"MontantSuspens\":\"0\"},{\"Document\":\"BCA0000039\",\"Intervenant\":\"F00816\",\"NomIntervenant\":\"Gestisoft inc.\",\"Description\":\"Gestisoft inc.\",\"Statut\":\"AAP\",\"DateDocument\":\"2022-07-07\",\"SousTotal\":\"0\",\"MontantSuspens\":\"0\"}]"
+        }
+      ]
+    },
+    {
+      "name": "CréationEntete",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "value": "{{TOKEN-Produit-PP}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Type\": \"BSP\",\n    \"DateDocument\": \"2022-06-23\",\n    \"Statut\": \"ACT\",\n    \"Intervenant\": \"F00166\"\n}"
+        },
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete//?Company=001",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentEntete",
+            "",
+            ""
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "CréationEntete",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "value": "{{TOKEN-Produit-PP}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Type\": \"BSP\",\n    \"DateDocument\": \"2022-06-23\",\n    \"Statut\": \"ACT\",\n    \"Intervenant\": \"F00166\"\n}"
+            },
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete//?Company=001",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentEntete",
+                "",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=531639.682608.635089,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "410821.635958.199028"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 14:54:53 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1266"
+            }
+          ],
+          "cookie": [],
+          "body": "[{\"Type\":\"BSP\",\"Document\":\"BSP0000006\",\"Description\":\"Acier Altitube Inc.\",\"DocumentMaitre\":\"\",\"TypeDocumentMaitre\":\"\",\"Intervenant\":\"F00166\",\"NomIntervenant\":\"Acier Altitube Inc.\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-06-23\",\"DateCreation\":\"2022-07-13\",\"UsagerResponsable\":\"WEBSTP\",\"UsagerInscripteur\":\"WEBSTP\",\"DateModification\":\"2022-07-13\",\"UsagerModificateur\":\"WEBSTP\",\"Reference1\":\"BSP0000006\",\"Reference2\":\"BSP0000006\",\"Contact\":\"Nicolas Couvrette Roy\",\"Territoire\":\"CA-QC\",\"LivraisonTransporteur\":\"\",\"LivraisonDateFin\":\"\",\"CommentaireGeneral\":\"\",\"RetenueCommande\":\"0\",\"TypeRetenue\":\"N\",\"Conditions\":\"\",\"AdresseLivraison\":\"2555, rue Francis-Hugues\",\"VilleLivraison\":\"Laval\",\"ProvinceLivraison\":\"Qu\\u00E9bec\",\"CodePostal\":\"H7S 2H7\",\"AdresseFacturation\":\"2555, rue Francis-Hugues\",\"VilleFacturation\":\"Laval\",\"ProvinceFacturation\":\"Qu\\u00E9bec\",\"CodePostalFacturation\":\"H7S 2H7\",\"CompagnieSource\":\"001\",\"CompagnieDestination\":\"001\",\"FrequenceFacturation\":\"N\",\"DateDebutFrequence\":\"\",\"Devise\":\"CAD\",\"SousTotal\":\"0\",\"MontantAjustement\":\"0\",\"MontantTaxe1\":\"0\",\"MontantTaxe2\":\"0\",\"LivraisonDateDebut\":\"\",\"AdresseLivraisonLigne2\":\"\",\"PaysLivraison\":\"\",\"AdresseFacturationLigne2\":\"\",\"PaysFacturation\":\"\",\"DateDerniereImpression\":\"\",\"LangueIntervenant\":\"FRA\",\"Facture\":\"\",\"Prefixe\":\"BSP\",\"DateFacture\":\"\",\"MontantRetenue\":\"0\",\"FrequencePeriode\":\"0\",\"DateFinFrequence\":\"\",\"DatePremiereFrequence\":\"\",\"SousTotalTransaction2\":\"0\",\"MontantAjustementTransaction2\":\"0\",\"MontantTaxe1Transaction2\":\"0\",\"MontantTaxe2Transaction2\":\"0\",\"MontantRetenueTransaction2\":\"0\",\"MontantDejaTraiteMaitre\":\"0\",\"ImpressionSommaire\":\"N\",\"Reference3\":\"\",\"Reference4\":\"\",\"Reference5\":\"\",\"FrequenceDescription\":\"\",\"Description2\":\"\",\"DossierFacturation\":\"F00166\",\"DescriptionFacturation\":\"Acier Altitube Inc.\",\"Description2Facturation\":\"\",\"ContactFacturation\":\"Nicolas Couvrette Roy\",\"DossierLivraison\":\"F00166\",\"DescriptionLivraison\":\"Acier Altitube Inc.\",\"Description2Livraison\":\"\",\"ContactLivraison\":\"Nicolas Couvrette Roy\",\"SousTotalDejaTraiteMaitre\":\"0\",\"MontantSuspens\":\"0\",\"TypeDocumentEngagement\":\"BSP\",\"DocumentEngagement\":\"BSP0000006\",\"IdentifiantUnique\":\"147\",\"LivraisonDateDebutReelle\":\"\",\"LivraisonDateReelle\":\"\",\"FrequenceImpressionDescription\":\"\",\"FrequenceImpressionPeriode\":\"0\",\"FrequenceImpression\":\"N\",\"DateDebutDerniereImpression\":\"\",\"DateFinDerniereImpression\":\"\",\"DatePremiereImpression\":\"\",\"DateDenonciation\":\"\",\"MontantDenonce\":\"0\",\"QuittanceRecue\":\"0\",\"QuittanceRecevoir\":\"0\",\"MiseJour\":\"A\",\"TelephoneContact\":\" (450)975-8823\",\"TelephoneFacturation\":\" (450)975-8823\",\"TelephoneLivraison\":\" (450)975-8823\",\"TypeIntervenant\":\"FOU\",\"TypeIntervenantFacturation\":\"FOU\",\"TypeIntervenantLivraison\":\"FOU\",\"CompagnieIntervenant\":\"\",\"CompagnieIntervenantFacturation\":\"\",\"CompagnieIntervenantLivraison\":\"\",\"CompagnieLiee\":\"001\",\"Consolidation\":\"I\",\"Reference6\":\"\",\"Reference7\":\"\",\"Reference8\":\"\",\"Reference9\":\"\",\"Reference10\":\"\",\"Reference11\":\"\",\"Reference12\":\"\",\"Reference13\":\"\",\"Reference14\":\"\",\"Reference15\":\"\",\"Succursale\":\"\",\"VersionRecord\":\"1114\",\"TimestampDerniereSauvegarde\":\"2022-07-13 10:54:51\",\"Projet\":\"\",\"TypeGeneration\":\"\",\"RevisionDocument\":\"\",\"Num\\u00E9roFactureATraiter\":\"\",\"DateFactureATraiter\":\"\",\"DateTransactionFactureATraiter\":\"\",\"DateDebutDocument\":\"\",\"DateFinDocument\":\"\"}]"
+        }
+      ]
+    },
+    {
+      "name": "Création détail #2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "type": "text",
+            "value": "{{TOKEN-Produit-PP}}"
+          },
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Type\": \"BSP\",\n    \"Document\": \"BSP0000006\",\n    \"Transaction1Quantite\":\"2560\",\n    \"PrixUnitaireTransaction1\":\"1.5465\",\n    \"Projet\":\"0666\",\n    \"Activite\":\"10010\",\n    \"CategorieCout\":\"2\"\n\n}"
+        },
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentDetail//?Company=001",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentDetail",
+            "",
+            ""
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            },
+            {
+              "key": "Document",
+              "value": "CMD0017007",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Création détail #2",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "type": "text",
+                "value": "{{TOKEN-Produit-PP}}"
+              },
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Type\": \"BSP\",\n    \"Document\": \"BSP0000006\",\n    \"Transaction1Quantite\":\"2560\",\n    \"PrixUnitaireTransaction1\":\"1.5465\",\n    \"Projet\":\"0666\",\n    \"Activite\":\"10010\",\n    \"CategorieCout\":\"2\"\n\n}"
+            },
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentDetail//?Company=001",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentDetail",
+                "",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                },
+                {
+                  "key": "Document",
+                  "value": "CMD0017007",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=425568.597830.535258,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "425939.973848.188760"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 14:59:39 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1492"
+            }
+          ],
+          "cookie": [],
+          "body": "[{\"Type\":\"BSP\",\"Document\":\"BSP0000006\",\"Ligne\":\"1\",\"Projet\":\"0666\",\"Activite\":\"10010\",\"Extra\":\"\",\"Equipement\":\"\",\"CategorieCout\":\"2\",\"TravauxCours\":\"N\",\"Division\":\"001\",\"Item\":\"\",\"Version\":\"\",\"Entrepot\":\"\",\"Transaction1Serie\":\"\",\"Transaction1Quantite\":\"2560\",\"Transaction1Unite\":\"UNI\",\"Transaction2Quantite\":\"0\",\"Transaction2Unite\":\"UNI\",\"PrixUnitaireTransaction1\":\"1.5465\",\"EscompteTransaction1\":\"0\",\"SousTotalApresEscompteTransaction1\":\"3959.04\",\"Taxe1Transaction1\":\"197.952\",\"Taxe2Transaction1\":\"394.91424\",\"GrandTotalTransaction1\":\"4551.9\",\"PrixUnitaireTransaction2\":\"1.5465\",\"EscompteTransaction2\":\"0\",\"SousTotalApresEscompteTransaction2\":\"0\",\"Taxe1Transaction2\":\"0\",\"Taxe2Transaction2\":\"0\",\"GrandTotalTransaction2\":\"0\",\"Statut\":\"ACT\",\"QuantiteSuspend\":\"2560\",\"CodeTaxe1\":\"TF\",\"CodeTaxe2\":\"TP\",\"DescriptionLigne\":\"\",\"MontantRetenuetaxesApresRetenueTransaction2\":\"0\",\"MontantRetenuetaxesApresRetenueTransaction1\":\"0\",\"NoPiece\":\"\",\"QuantiteDejaTraitee\":\"0\",\"QuantiteAnnulee\":\"0\",\"MontantDejaTraite\":\"0\",\"MontantSuspens\":\"3959.04\",\"MontantAnnule\":\"0\",\"DateLivraison\":\"\",\"PourcentageRetenuetaxesApresRetenueTransaction1\":\"0\",\"PourcentageRetenuetaxesAvantRetenueTransaction1\":\"0\",\"MontantRetenuetaxesAvantRetenueTransaction1\":\"0\",\"PourcentageRetenuetaxesApresRetenueTransaction2\":\"0\",\"PourcentageRetenuetaxesAvantRetenueTransaction2\":\"0\",\"MontantRetenuetaxesAvantRetenueTransaction2\":\"0\",\"PourcentageEscompteTransaction1\":\"0\",\"PourcentageEscompteTransaction2\":\"0\",\"SousTotalAvantAjustementTransaction1\":\"3959.04\",\"SousTotalAvantAjustementTransaction2\":\"0\",\"Reference1\":\"\",\"Reference2\":\"\",\"Reference3\":\"\",\"CodeTaxe1Transaction2\":\"TF\",\"CodeTaxe2Transaction2\":\"TP\",\"Transaction1QuantiteMaitre\":\"0\",\"Transaction1MontantMaitre\":\"0\",\"QuantiteDejaTraiteeMaitre\":\"0\",\"MontantDejaTraiteMaitre\":\"0\",\"QuantiteSuspendMaitre\":\"0\",\"MontantSuspendMaitre\":\"0\",\"QuantiteAnnuleeMaitre\":\"0\",\"MontantAnnuleMaitre\":\"0\",\"Compagnie\":\"001\",\"Ordre\":\"1\",\"LigneGeneree\":\"N\",\"DossierPatient\":\"\",\"Commentaire\":\"\",\"Transaction2Serie\":\"\",\"SerieTraites\":\"\",\"MontantArrondiAjustement\":\"0\",\"MontantArrondiRetenuetaxesApresRetenue\":\"0\",\"MontantArrondiRetenuetaxesAvantRetenue\":\"0\",\"Modalite\":\"\",\"NumeroDepot\":\"\",\"LigneDocumentMaitre\":\"0\",\"NumeroFactureAvance\":\"\",\"FrequenceInitialeDescription\":\"\",\"FrequenceInitialeQuantite\":\"0\",\"FrequenceInitialeUnite\":\"UNI\",\"FrequenceInitialePrixUnitaire\":\"0\",\"FrequenceInitialePeriode\":\"0\",\"FrequenceInitialeFrequence\":\"H\",\"FrequencePeriodiqueDescription\":\"\",\"FrequencePeriodiqueQuantite\":\"0\",\"FrequencePeriodiqueUnite\":\"UNI\",\"FrequencePeriodiquePrixUnitaire\":\"0\",\"FrequencePeriodiquePeriode\":\"0\",\"FrequencePeriodiqueFrequence\":\"H\",\"FrequencePeriodiqueNombre\":\"0\",\"FrequenceFinaleDescription\":\"\",\"FrequenceFinaleQuantite\":\"0\",\"FrequenceFinaleUnite\":\"UNI\",\"FrequenceFinalePrixUnitaire\":\"0\",\"FrequenceMaximumQuantite\":\"0\",\"FrequenceMaximumUnite\":\"UNI\",\"FrequenceMaximumMontant\":\"0\",\"FrequenceInititaleDateDebut\":\"\",\"FrequencePeriodiqueDateDebut\":\"\",\"DateDebutFrequence\":\"\",\"DateFinFrequence\":\"\",\"GestionQuantites\":\"M\",\"MontantRetenueretenueApresTaxesTransaction1\":\"0\",\"MontantRetenueretenueApresTaxesTransaction2\":\"0\",\"PourcentageRetenueRetenueApresTaxesTransaction1\":\"0\",\"PourcentageRetenueRetenueApresTaxesTransaction2\":\"0\",\"MontantArrondiRetenueretenueApresTaxes\":\"0\",\"IdentifiantUnique\":\"198\",\"FrequenceInitialeDefautDocumentProduitDescription\":\"\",\"FrequenceInitialeDefautDocumentProduitQuantite\":\"0\",\"FrequenceInitialeDefautDocumentProduitUnite\":\"UNI\",\"FrequenceInitialeDefautDocumentProduitPrixUnitaire\":\"0\",\"FrequenceInitialeDefautDocumentProduitPeriode\":\"0\",\"FrequenceInitialeDefautDocumentProduitFrequence\":\"H\",\"FrequencePeriodiqueDefautDocumentProduitDescription\":\"\",\"FrequencePeriodiqueDefautDocumentProduitQuantite\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitUnite\":\"UNI\",\"FrequencePeriodiqueDefautDocumentProduitPrixUnitair\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitPeriode\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitFrequence\":\"H\",\"FrequencePeriodiqueDefautDocumentProduitNombre\":\"0\",\"FrequenceFinaleDefautDocumentProduitDescription\":\"\",\"FrequenceFinaleDefautDocumentProduitQuantite\":\"0\",\"FrequenceFinaleDefautDocumentProduitUnite\":\"UNI\",\"FrequenceFinaleDefautDocumentProduitPrixUnitaire\":\"0\",\"FrequenceModalite\":\"\",\"CTITaxe1Transaction1\":\"197.952\",\"CTITaxe2Transaction1\":\"394.91424\",\"CTITaxe1Transaction2\":\"0\",\"CTITaxe2Transaction2\":\"0\",\"LigneItemMaitreListeMateriel\":\"0\",\"CodeCatalogue\":\"\",\"CodeFabricant\":\"\",\"PieceFabricant\":\"\",\"TransactionSousTraitance\":\"N\",\"VersionRecord\":\"733\",\"TimestampDerniereSauvegarde\":\"2022-07-13 10:59:35\",\"TypeDocumentMaitre\":\"\",\"DocumentMaitre\":\"\",\"Majoration1Transaction1\":\"0\",\"Majoration2Transaction1\":\"0\",\"Majoration1Transaction2\":\"0\",\"Majoration2Transaction2\":\"0\",\"PourcMajoration1Transaction1\":\"0\",\"PourcMajoration2Transaction1\":\"0\",\"PourcMajoration1Transaction2\":\"0\",\"PourcMajoration2Transaction2\":\"0\",\"NiveauApplicationMajoration1\":\"1\",\"NiveauApplicationMajoration2\":\"1\",\"CategorieVendant\":\"2\",\"VentilationMaitre\":\"0\",\"PourcentageAvancement\":\"0\",\"PourcentageAvancementLivraison\":\"0\",\"TypeVentilation\":\"A\"}]"
+        }
+      ]
+    },
+    {
+      "name": "ModificationEntete",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "value": "{{TOKEN-Produit-PP}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Type\":\"BSP\",\n    \"Document\":\"BSP0000006\",\n    \"Projet\":\"0666\",\n    \"Reference3\": \"ANGPEL\"\n}"
+        },
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete/147//?Company=001",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentEntete",
+            "147",
+            "",
+            ""
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "ModificationEntete",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "value": "{{TOKEN-Produit-PP}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Type\":\"BSP\",\n    \"Document\":\"BSP0000006\",\n    \"Projet\":\"0666\",\n    \"Reference3\": \"ANGPEL\"\n}"
+            },
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete/147//?Company=001",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentEntete",
+                "147",
+                "",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=833192.278816.685292,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "69053.99214.916817"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 15:01:51 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "3309"
+            }
+          ],
+          "cookie": [],
+          "body": "[{\"Type\":\"BSP\",\"Document\":\"BSP0000006\",\"Description\":\"Acier Altitube Inc.\",\"DocumentMaitre\":\"\",\"TypeDocumentMaitre\":\"\",\"Intervenant\":\"F00166\",\"NomIntervenant\":\"Acier Altitube Inc.\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-06-23\",\"DateCreation\":\"2022-07-13\",\"UsagerResponsable\":\"WEBSTP\",\"UsagerInscripteur\":\"WEBSTP\",\"DateModification\":\"2022-07-13\",\"UsagerModificateur\":\"WEBSTP\",\"Reference1\":\"BSP0000006\",\"Reference2\":\"BSP0000006\",\"Contact\":\"Nicolas Couvrette Roy\",\"Territoire\":\"CA-QC\",\"LivraisonTransporteur\":\"\",\"LivraisonDateFin\":\"\",\"CommentaireGeneral\":\"\",\"RetenueCommande\":\"0\",\"TypeRetenue\":\"N\",\"Conditions\":\"\",\"AdresseLivraison\":\"2555, rue Francis-Hugues\",\"VilleLivraison\":\"Laval\",\"ProvinceLivraison\":\"Qu\\u00E9bec\",\"CodePostal\":\"H7S 2H7\",\"AdresseFacturation\":\"2555, rue Francis-Hugues\",\"VilleFacturation\":\"Laval\",\"ProvinceFacturation\":\"Qu\\u00E9bec\",\"CodePostalFacturation\":\"H7S 2H7\",\"CompagnieSource\":\"001\",\"CompagnieDestination\":\"001\",\"FrequenceFacturation\":\"N\",\"DateDebutFrequence\":\"\",\"Devise\":\"CAD\",\"SousTotal\":\"3959.04\",\"MontantAjustement\":\"0\",\"MontantTaxe1\":\"197.95\",\"MontantTaxe2\":\"394.91\",\"LivraisonDateDebut\":\"\",\"AdresseLivraisonLigne2\":\"\",\"PaysLivraison\":\"\",\"AdresseFacturationLigne2\":\"\",\"PaysFacturation\":\"\",\"DateDerniereImpression\":\"\",\"LangueIntervenant\":\"FRA\",\"Facture\":\"\",\"Prefixe\":\"BSP\",\"DateFacture\":\"\",\"MontantRetenue\":\"0\",\"FrequencePeriode\":\"0\",\"DateFinFrequence\":\"\",\"DatePremiereFrequence\":\"\",\"SousTotalTransaction2\":\"0\",\"MontantAjustementTransaction2\":\"0\",\"MontantTaxe1Transaction2\":\"0\",\"MontantTaxe2Transaction2\":\"0\",\"MontantRetenueTransaction2\":\"0\",\"MontantDejaTraiteMaitre\":\"0\",\"ImpressionSommaire\":\"N\",\"Reference3\":\"ANGPEL\",\"Reference4\":\"\",\"Reference5\":\"\",\"FrequenceDescription\":\"\",\"Description2\":\"\",\"DossierFacturation\":\"F00166\",\"DescriptionFacturation\":\"Acier Altitube Inc.\",\"Description2Facturation\":\"\",\"ContactFacturation\":\"Nicolas Couvrette Roy\",\"DossierLivraison\":\"F00166\",\"DescriptionLivraison\":\"Acier Altitube Inc.\",\"Description2Livraison\":\"\",\"ContactLivraison\":\"Nicolas Couvrette Roy\",\"SousTotalDejaTraiteMaitre\":\"0\",\"MontantSuspens\":\"3959.04\",\"TypeDocumentEngagement\":\"BSP\",\"DocumentEngagement\":\"BSP0000006\",\"IdentifiantUnique\":\"147\",\"LivraisonDateDebutReelle\":\"\",\"LivraisonDateReelle\":\"\",\"FrequenceImpressionDescription\":\"\",\"FrequenceImpressionPeriode\":\"0\",\"FrequenceImpression\":\"N\",\"DateDebutDerniereImpression\":\"\",\"DateFinDerniereImpression\":\"\",\"DatePremiereImpression\":\"\",\"DateDenonciation\":\"\",\"MontantDenonce\":\"0\",\"QuittanceRecue\":\"0\",\"QuittanceRecevoir\":\"0\",\"MiseJour\":\"A\",\"TelephoneContact\":\" (450)975-8823\",\"TelephoneFacturation\":\" (450)975-8823\",\"TelephoneLivraison\":\" (450)975-8823\",\"TypeIntervenant\":\"FOU\",\"TypeIntervenantFacturation\":\"FOU\",\"TypeIntervenantLivraison\":\"FOU\",\"CompagnieIntervenant\":\"\",\"CompagnieIntervenantFacturation\":\"\",\"CompagnieIntervenantLivraison\":\"\",\"CompagnieLiee\":\"001\",\"Consolidation\":\"I\",\"Reference6\":\"\",\"Reference7\":\"\",\"Reference8\":\"\",\"Reference9\":\"\",\"Reference10\":\"\",\"Reference11\":\"\",\"Reference12\":\"\",\"Reference13\":\"\",\"Reference14\":\"\",\"Reference15\":\"\",\"Succursale\":\"\",\"VersionRecord\":\"1119\",\"TimestampDerniereSauvegarde\":\"2022-07-13 11:01:51\",\"Projet\":\"0666\",\"TypeGeneration\":\"\",\"RevisionDocument\":\"\",\"Num\\u00E9roFactureATraiter\":\"\",\"DateFactureATraiter\":\"\",\"DateTransactionFactureATraiter\":\"\",\"DateDebutDocument\":\"\",\"DateFinDocument\":\"\"}]"
+        }
+      ]
+    },
+    {
+      "name": "Modif detail selon cie",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "type": "text",
+            "value": "{{TOKEN-Produit-PP}}"
+          },
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Type\": \"BSP\",\n    \"Document\": \"BSP0000006\",\n    \"Ligne\":\"001\",\n    \"Transaction2Quantite\":\"1575\"\n}"
+        },
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentDetail/198//?Company=001",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentDetail",
+            "198",
+            "",
+            ""
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            },
+            {
+              "key": "Document",
+              "value": "CMD0017007",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "Exemple pour  modifier une  ligne spécifique dans le détail d'un document.\r\n\r\nNous devons avoir l'identifiant de la ligne pourl'inscrire dans l'URL et être capable de modifier le document.\r\n\r\nHabituellement, on modifierait les champs de la transaction2 seulement, qui sont les champs de la facture à traiter."
+      },
+      "response": [
+        {
+          "name": "Modif detail selon cie",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "type": "text",
+                "value": "{{TOKEN-Produit-PP}}"
+              },
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Type\": \"BSP\",\n    \"Document\": \"BSP0000006\",\n    \"Ligne\":\"001\",\n    \"Transaction2Quantite\":\"1575\"\n}"
+            },
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentDetail/198//?Company=001",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentDetail",
+                "198",
+                "",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                },
+                {
+                  "key": "Document",
+                  "value": "CMD0017007",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=711610.125946.439306,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "760443.123438.668244"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 15:04:43 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "5130"
+            }
+          ],
+          "cookie": [],
+          "body": "[{\"Type\":\"BSP\",\"Document\":\"BSP0000006\",\"Ligne\":\"1\",\"Projet\":\"0666\",\"Activite\":\"10010\",\"Extra\":\"\",\"Equipement\":\"\",\"CategorieCout\":\"2\",\"TravauxCours\":\"N\",\"Division\":\"001\",\"Item\":\"\",\"Version\":\"\",\"Entrepot\":\"\",\"Transaction1Serie\":\"\",\"Transaction1Quantite\":\"2560\",\"Transaction1Unite\":\"UNI\",\"Transaction2Quantite\":\"1575\",\"Transaction2Unite\":\"UNI\",\"PrixUnitaireTransaction1\":\"1.5465\",\"EscompteTransaction1\":\"0\",\"SousTotalApresEscompteTransaction1\":\"3959.04\",\"Taxe1Transaction1\":\"197.952\",\"Taxe2Transaction1\":\"394.91424\",\"GrandTotalTransaction1\":\"4551.9\",\"PrixUnitaireTransaction2\":\"1.5465\",\"EscompteTransaction2\":\"0\",\"SousTotalApresEscompteTransaction2\":\"2435.74\",\"Taxe1Transaction2\":\"121.787\",\"Taxe2Transaction2\":\"242.965065\",\"GrandTotalTransaction2\":\"2800.5\",\"Statut\":\"ACT\",\"QuantiteSuspend\":\"2560\",\"CodeTaxe1\":\"TF\",\"CodeTaxe2\":\"TP\",\"DescriptionLigne\":\"\",\"MontantRetenuetaxesApresRetenueTransaction2\":\"0\",\"MontantRetenuetaxesApresRetenueTransaction1\":\"0\",\"NoPiece\":\"\",\"QuantiteDejaTraitee\":\"0\",\"QuantiteAnnulee\":\"0\",\"MontantDejaTraite\":\"0\",\"MontantSuspens\":\"3959.04\",\"MontantAnnule\":\"0\",\"DateLivraison\":\"\",\"PourcentageRetenuetaxesApresRetenueTransaction1\":\"0\",\"PourcentageRetenuetaxesAvantRetenueTransaction1\":\"0\",\"MontantRetenuetaxesAvantRetenueTransaction1\":\"0\",\"PourcentageRetenuetaxesApresRetenueTransaction2\":\"0\",\"PourcentageRetenuetaxesAvantRetenueTransaction2\":\"0\",\"MontantRetenuetaxesAvantRetenueTransaction2\":\"0\",\"PourcentageEscompteTransaction1\":\"0\",\"PourcentageEscompteTransaction2\":\"0\",\"SousTotalAvantAjustementTransaction1\":\"3959.04\",\"SousTotalAvantAjustementTransaction2\":\"2435.74\",\"Reference1\":\"\",\"Reference2\":\"\",\"Reference3\":\"\",\"CodeTaxe1Transaction2\":\"TF\",\"CodeTaxe2Transaction2\":\"TP\",\"Transaction1QuantiteMaitre\":\"0\",\"Transaction1MontantMaitre\":\"0\",\"QuantiteDejaTraiteeMaitre\":\"0\",\"MontantDejaTraiteMaitre\":\"0\",\"QuantiteSuspendMaitre\":\"0\",\"MontantSuspendMaitre\":\"0\",\"QuantiteAnnuleeMaitre\":\"0\",\"MontantAnnuleMaitre\":\"0\",\"Compagnie\":\"001\",\"Ordre\":\"1\",\"LigneGeneree\":\"N\",\"DossierPatient\":\"\",\"Commentaire\":\"\",\"Transaction2Serie\":\"\",\"SerieTraites\":\"\",\"MontantArrondiAjustement\":\"0\",\"MontantArrondiRetenuetaxesApresRetenue\":\"0\",\"MontantArrondiRetenuetaxesAvantRetenue\":\"0\",\"Modalite\":\"\",\"NumeroDepot\":\"\",\"LigneDocumentMaitre\":\"0\",\"NumeroFactureAvance\":\"\",\"FrequenceInitialeDescription\":\"\",\"FrequenceInitialeQuantite\":\"0\",\"FrequenceInitialeUnite\":\"UNI\",\"FrequenceInitialePrixUnitaire\":\"0\",\"FrequenceInitialePeriode\":\"0\",\"FrequenceInitialeFrequence\":\"H\",\"FrequencePeriodiqueDescription\":\"\",\"FrequencePeriodiqueQuantite\":\"0\",\"FrequencePeriodiqueUnite\":\"UNI\",\"FrequencePeriodiquePrixUnitaire\":\"0\",\"FrequencePeriodiquePeriode\":\"0\",\"FrequencePeriodiqueFrequence\":\"H\",\"FrequencePeriodiqueNombre\":\"0\",\"FrequenceFinaleDescription\":\"\",\"FrequenceFinaleQuantite\":\"0\",\"FrequenceFinaleUnite\":\"UNI\",\"FrequenceFinalePrixUnitaire\":\"0\",\"FrequenceMaximumQuantite\":\"0\",\"FrequenceMaximumUnite\":\"UNI\",\"FrequenceMaximumMontant\":\"0\",\"FrequenceInititaleDateDebut\":\"\",\"FrequencePeriodiqueDateDebut\":\"\",\"DateDebutFrequence\":\"\",\"DateFinFrequence\":\"\",\"GestionQuantites\":\"M\",\"MontantRetenueretenueApresTaxesTransaction1\":\"0\",\"MontantRetenueretenueApresTaxesTransaction2\":\"0\",\"PourcentageRetenueRetenueApresTaxesTransaction1\":\"0\",\"PourcentageRetenueRetenueApresTaxesTransaction2\":\"0\",\"MontantArrondiRetenueretenueApresTaxes\":\"0\",\"IdentifiantUnique\":\"198\",\"FrequenceInitialeDefautDocumentProduitDescription\":\"\",\"FrequenceInitialeDefautDocumentProduitQuantite\":\"0\",\"FrequenceInitialeDefautDocumentProduitUnite\":\"UNI\",\"FrequenceInitialeDefautDocumentProduitPrixUnitaire\":\"0\",\"FrequenceInitialeDefautDocumentProduitPeriode\":\"0\",\"FrequenceInitialeDefautDocumentProduitFrequence\":\"H\",\"FrequencePeriodiqueDefautDocumentProduitDescription\":\"\",\"FrequencePeriodiqueDefautDocumentProduitQuantite\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitUnite\":\"UNI\",\"FrequencePeriodiqueDefautDocumentProduitPrixUnitair\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitPeriode\":\"0\",\"FrequencePeriodiqueDefautDocumentProduitFrequence\":\"H\",\"FrequencePeriodiqueDefautDocumentProduitNombre\":\"0\",\"FrequenceFinaleDefautDocumentProduitDescription\":\"\",\"FrequenceFinaleDefautDocumentProduitQuantite\":\"0\",\"FrequenceFinaleDefautDocumentProduitUnite\":\"UNI\",\"FrequenceFinaleDefautDocumentProduitPrixUnitaire\":\"0\",\"FrequenceModalite\":\"\",\"CTITaxe1Transaction1\":\"197.952\",\"CTITaxe2Transaction1\":\"394.91424\",\"CTITaxe1Transaction2\":\"121.787\",\"CTITaxe2Transaction2\":\"242.965065\",\"LigneItemMaitreListeMateriel\":\"0\",\"CodeCatalogue\":\"\",\"CodeFabricant\":\"\",\"PieceFabricant\":\"\",\"TransactionSousTraitance\":\"N\",\"VersionRecord\":\"737\",\"TimestampDerniereSauvegarde\":\"2022-07-13 11:04:43\",\"TypeDocumentMaitre\":\"\",\"DocumentMaitre\":\"\",\"Majoration1Transaction1\":\"0\",\"Majoration2Transaction1\":\"0\",\"Majoration1Transaction2\":\"0\",\"Majoration2Transaction2\":\"0\",\"PourcMajoration1Transaction1\":\"0\",\"PourcMajoration2Transaction1\":\"0\",\"PourcMajoration1Transaction2\":\"0\",\"PourcMajoration2Transaction2\":\"0\",\"NiveauApplicationMajoration1\":\"1\",\"NiveauApplicationMajoration2\":\"1\",\"CategorieVendant\":\"2\",\"VentilationMaitre\":\"0\",\"PourcentageAvancement\":\"61.5235\",\"PourcentageAvancementLivraison\":\"61.5234\",\"TypeVentilation\":\"A\"}]"
+        }
+      ]
+    },
+    {
+      "name": "Production document",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "CTRL-Token",
+            "type": "text",
+            "value": "{{TOKEN-Produit-PP}}"
+          },
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"DateDocumentGenere\": \"2022-07-05\",\r\n  \"Reference2\":\"packingslip\"\r\n}"
+        },
+        "url": {
+          "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete/147/Production?Company=001",
+          "host": [
+            "{{URL-Produit}}"
+          ],
+          "path": [
+            "sgiweb.dll",
+            "Datasnap",
+            "Rest",
+            "TProductMethods",
+            "Request",
+            "DocumentEntete",
+            "147",
+            "Production"
+          ],
+          "query": [
+            {
+              "key": "Company",
+              "value": "001"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Production document",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "CTRL-Token",
+                "type": "text",
+                "value": "{{TOKEN-Produit-PP}}"
+              },
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"DateDocumentGenere\": \"2022-07-05\",\r\n  \"Reference2\":\"packingslip\"\r\n}"
+            },
+            "url": {
+              "raw": "{{URL-Produit}}/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete/147/Production?Company=001",
+              "host": [
+                "{{URL-Produit}}"
+              ],
+              "path": [
+                "sgiweb.dll",
+                "Datasnap",
+                "Rest",
+                "TProductMethods",
+                "Request",
+                "DocumentEntete",
+                "147",
+                "Production"
+              ],
+              "query": [
+                {
+                  "key": "Company",
+                  "value": "001"
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": "Pragma",
+              "value": "dssession=121888.695140.681415,dssessionexpires=3600000"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/html; charset=UTF-8"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/10.0"
+            },
+            {
+              "key": "CTRLRequestID",
+              "value": "735270.714638.628044"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 13 Jul 2022 15:06:21 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "3375"
+            }
+          ],
+          "cookie": [],
+          "body": "{\"Data\":[{\"Type\":\"BSP\",\"Document\":\"BSP0000006\",\"Description\":\"Acier Altitube Inc.\",\"DocumentMaitre\":\"\",\"TypeDocumentMaitre\":\"\",\"Intervenant\":\"F00166\",\"NomIntervenant\":\"Acier Altitube Inc.\",\"Statut\":\"ACT\",\"DateDocument\":\"2022-06-23\",\"DateCreation\":\"2022-07-13\",\"UsagerResponsable\":\"WEBSTP\",\"UsagerInscripteur\":\"WEBSTP\",\"DateModification\":\"2022-07-13\",\"UsagerModificateur\":\"WEBSTP\",\"Reference1\":\"BSP0000006\",\"Reference2\":\"BSP0000006\",\"Contact\":\"Nicolas Couvrette Roy\",\"Territoire\":\"CA-QC\",\"LivraisonTransporteur\":\"\",\"LivraisonDateFin\":\"\",\"CommentaireGeneral\":\"\",\"RetenueCommande\":\"0\",\"TypeRetenue\":\"N\",\"Conditions\":\"\",\"AdresseLivraison\":\"2555, rue Francis-Hugues\",\"VilleLivraison\":\"Laval\",\"ProvinceLivraison\":\"Qu\\u00E9bec\",\"CodePostal\":\"H7S 2H7\",\"AdresseFacturation\":\"2555, rue Francis-Hugues\",\"VilleFacturation\":\"Laval\",\"ProvinceFacturation\":\"Qu\\u00E9bec\",\"CodePostalFacturation\":\"H7S 2H7\",\"CompagnieSource\":\"001\",\"CompagnieDestination\":\"001\",\"FrequenceFacturation\":\"N\",\"DateDebutFrequence\":\"\",\"Devise\":\"CAD\",\"SousTotal\":\"3959.04\",\"MontantAjustement\":\"0\",\"MontantTaxe1\":\"197.95\",\"MontantTaxe2\":\"394.91\",\"LivraisonDateDebut\":\"\",\"AdresseLivraisonLigne2\":\"\",\"PaysLivraison\":\"\",\"AdresseFacturationLigne2\":\"\",\"PaysFacturation\":\"\",\"DateDerniereImpression\":\"\",\"LangueIntervenant\":\"FRA\",\"Facture\":\"\",\"Prefixe\":\"BSP\",\"DateFacture\":\"\",\"MontantRetenue\":\"0\",\"FrequencePeriode\":\"0\",\"DateFinFrequence\":\"\",\"DatePremiereFrequence\":\"\",\"SousTotalTransaction2\":\"0\",\"MontantAjustementTransaction2\":\"0\",\"MontantTaxe1Transaction2\":\"0\",\"MontantTaxe2Transaction2\":\"0\",\"MontantRetenueTransaction2\":\"0\",\"MontantDejaTraiteMaitre\":\"0\",\"ImpressionSommaire\":\"N\",\"Reference3\":\"ANGPEL\",\"Reference4\":\"\",\"Reference5\":\"\",\"FrequenceDescription\":\"\",\"Description2\":\"\",\"DossierFacturation\":\"F00166\",\"DescriptionFacturation\":\"Acier Altitube Inc.\",\"Description2Facturation\":\"\",\"ContactFacturation\":\"Nicolas Couvrette Roy\",\"DossierLivraison\":\"F00166\",\"DescriptionLivraison\":\"Acier Altitube Inc.\",\"Description2Livraison\":\"\",\"ContactLivraison\":\"Nicolas Couvrette Roy\",\"SousTotalDejaTraiteMaitre\":\"0\",\"MontantSuspens\":\"1523.3\",\"TypeDocumentEngagement\":\"BSP\",\"DocumentEngagement\":\"BSP0000006\",\"IdentifiantUnique\":\"147\",\"LivraisonDateDebutReelle\":\"\",\"LivraisonDateReelle\":\"\",\"FrequenceImpressionDescription\":\"\",\"FrequenceImpressionPeriode\":\"0\",\"FrequenceImpression\":\"N\",\"DateDebutDerniereImpression\":\"\",\"DateFinDerniereImpression\":\"\",\"DatePremiereImpression\":\"\",\"DateDenonciation\":\"\",\"MontantDenonce\":\"0\",\"QuittanceRecue\":\"0\",\"QuittanceRecevoir\":\"0\",\"MiseJour\":\"A\",\"TelephoneContact\":\" (450)975-8823\",\"TelephoneFacturation\":\" (450)975-8823\",\"TelephoneLivraison\":\" (450)975-8823\",\"TypeIntervenant\":\"FOU\",\"TypeIntervenantFacturation\":\"FOU\",\"TypeIntervenantLivraison\":\"FOU\",\"CompagnieIntervenant\":\"\",\"CompagnieIntervenantFacturation\":\"\",\"CompagnieIntervenantLivraison\":\"\",\"CompagnieLiee\":\"001\",\"Consolidation\":\"I\",\"Reference6\":\"\",\"Reference7\":\"\",\"Reference8\":\"\",\"Reference9\":\"\",\"Reference10\":\"\",\"Reference11\":\"\",\"Reference12\":\"\",\"Reference13\":\"\",\"Reference14\":\"\",\"Reference15\":\"\",\"Succursale\":\"\",\"VersionRecord\":\"1128\",\"TimestampDerniereSauvegarde\":\"2022-07-13 11:06:20\",\"Projet\":\"0666\",\"TypeGeneration\":\"\",\"RevisionDocument\":\"\",\"Num\\u00E9roFactureATraiter\":\"\",\"DateFactureATraiter\":\"\",\"DateTransactionFactureATraiter\":\"\",\"DateDebutDocument\":\"\",\"DateFinDocument\":\"\"}],\"ProducedDocument\":{\"Type\":\"RSP\",\"Document\":\"RSP0000013\"}}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "Steel2022!",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "WEBSTP",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "TOKEN-Produit-PP",
+      "value": "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}"
+    },
+    {
+      "key": "URL-Produit",
+      "value": "http://192.168.1.157:8002/service"
+    }
+  ]
+}
