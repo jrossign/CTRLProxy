@@ -1,4 +1,4 @@
-package com.ipc.ctrlproxy.translator;
+package com.ipc.ctrlproxy.services;
 
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
@@ -33,17 +33,18 @@ public class SteelToCTRLTranslator
 
     public Header getCTRLHeader(SPOrder order, String  action) throws ParseException
     {
-        String supplierPrefix = order.getSupplier().substring(0, order.getSupplier().indexOf("-"));
-        String supplierSuffix = order.getSupplier().substring(order.getSupplier().indexOf("-")+1);
+        //String supplierPrefix = order.getSupplier().substring(0, order.getSupplier().indexOf("-"));
+        //String supplierSuffix = order.getSupplier().substring(order.getSupplier().indexOf("-")+1);
         String crtlDate = CTRL_DATE_FORMAT.format(STEEL_DATE_FORMAT.parse(order.getOrderDate()));
 
         return Header.builder()
                 .type("BSP")
                 .document("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
-                .description(supplierSuffix)
-                .intervenant(supplierPrefix)
-                .nomIntervenant(supplierSuffix)
-                .statut("ACT")
+                .intervenant(order.getSupplier())
+                //.description(supplierSuffix)
+                //.intervenant(supplierPrefix)
+                //.nomIntervenant(supplierSuffix)
+                .statut("SUS")
                 .dateDocument(crtlDate)
                 //.dateCreation(crtlDate) ne peut être modifié
                 // .usagerResponsable(order.getEmployee()) Responsable MATPER : La fiche Responsable MATPER est inexistante dans Ressource
@@ -79,6 +80,7 @@ public class SteelToCTRLTranslator
                     //.ligne(String.valueOf(item.getOrderLine()))
                     .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
                     .transaction1Quantite(String.valueOf(item.getProductItem().getQuantity()))
+                    //.quantiteSuspend(String.valueOf(item.getProductItem().getQuantity()))
                     //.transaction1Unite(UNITS.get(item.getValuationUnit()))
                     .prixUnitaireTransaction1(item.getUnitaryPrice())
                     //.grandTotalTransaction1(item.getTotalPrice())
@@ -86,6 +88,7 @@ public class SteelToCTRLTranslator
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
                     .activite("10010")
+                    .statut("SUS")
                     //.ordre(item.getOrderLine())
                     //.timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
                     .build());
@@ -96,10 +99,10 @@ public class SteelToCTRLTranslator
     private String getDescriptionLigne(Item item) {
         String ligne = item.getProductItem().getName();
         if (item.getProductItem().getLength().getValue() > 0) {
-            ligne = ligne + " X" + String.valueOf(item.getProductItem().getLength().getValue()) + " mm";
+            ligne = ligne + " X" + String.valueOf(item.getProductItem().getLength().getValue()) + " " + item.getProductItem().getLength().getUom();
         }
         if (item.getProductItem().getWidth().getValue() > 0) {
-            ligne = ligne + " X" + String.valueOf(item.getProductItem().getWidth().getValue()) + "mm";
+            ligne = ligne + " X" + String.valueOf(item.getProductItem().getWidth().getValue()) + " " + item.getProductItem().getWidth().getUom();
         }
         return ligne;
     }

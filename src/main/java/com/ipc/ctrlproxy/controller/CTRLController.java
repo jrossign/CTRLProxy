@@ -1,23 +1,21 @@
 package com.ipc.ctrlproxy.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.ipc.ctrlproxy.CTRLServices;
-import com.ipc.ctrlproxy.dao.EmpStats;
+import com.ipc.ctrlproxy.services.CTRLOrderServices;
 import com.ipc.ctrlproxy.dao.LaincoIntranetDAO;
 import com.ipc.ctrlproxy.exception.CRTLException;
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
-import com.ipc.ctrlproxy.model.po.PurchaseOrder;
 import com.ipc.ctrlproxy.model.status.Message;
 import com.ipc.ctrlproxy.model.status.MessageItem;
 import com.ipc.ctrlproxy.model.status.Status;
 import com.ipc.ctrlproxy.model.steel.SPOrder;
-import com.ipc.ctrlproxy.translator.SteelToCTRLTranslator;
+import com.ipc.ctrlproxy.services.CTRLReceiveServices;
+import com.ipc.ctrlproxy.services.SteelToCTRLTranslator;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -27,12 +25,9 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.ServiceUnavailableException;
@@ -45,7 +40,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class CTRLController implements InitializingBean
+public class CTRLController
 {
     @Autowired
     private LaincoIntranetDAO dao;
@@ -61,7 +56,10 @@ public class CTRLController implements InitializingBean
     private ObjectMapper mapper;
 
     @Autowired
-    private CTRLServices ctrlServices;
+    private CTRLOrderServices orderServices;
+
+    @Autowired
+    private CTRLReceiveServices receiveServices;
 
     @PostMapping(value = "/ctrlproxy", params = "action=SP_ORDERS", consumes = "application/json", produces = "application/json")
     public Status approvisionnement(@RequestBody List<SPOrder> orders, @RequestParam(name = "module", required = false) String module, @RequestParam(name="action") String action) throws ParseException, IOException {
@@ -69,16 +67,18 @@ public class CTRLController implements InitializingBean
 
         Status last = null;
         for (SPOrder order : orders) {
-            last = proxyRequest(translator.getCTRLHeader(order, action), translator.getCTRLDetails(order, action));
+            last = orderServices.syncHeaderAndDetails(order.getActionType(), translator.getCTRLHeader(order, action), translator.getCTRLDetails(order, action));
         }
         return last;
     }
 
     @PostMapping(value = "/ctrlproxy", params = "action=SP_RECEIVING", consumes = "application/json", produces = "application/json")
-    public Mono<Status> commande(@RequestBody List<PurchaseOrder> preq, @RequestParam(name = "module") String module, @RequestParam(name="action") String action)
+    public Mono<Status> receive(@RequestBody String body, HttpServletRequest req)
     {
-        List<EmpStats> list = dao.getX();
-
+        log.warn("Unserviced URI / body type / params");
+        log.warn(req.getRequestURI());
+        log.warn(req.getQueryString());
+        log.warn(System.lineSeparator()+body);
         return null;//proxyRequest(translate(preq, action));
     }
 
@@ -92,7 +92,7 @@ public class CTRLController implements InitializingBean
         return Mono.error(new ServiceUnavailableException("Method not allowed. Please check the URL and body."));
     }
 
-
+/*
 
     private Status proxyRequest(final Header header, final List<Details> details) throws IOException {
         List<MessageItem> responses = new ArrayList<>();
@@ -153,48 +153,6 @@ public class CTRLController implements InitializingBean
                 .messageHeader(buildStatusHeader(success, success?"Success":"Problème à la création de détails"))
                 .messageItem(responses)
                 .build();
-        /*
-
-        String crtlResponse = webClient.post()
-
-                .uri("/service/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentEntete//?Company=001")
-                .header("CTRL-Token", "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}")
-                .header("Authorization", "Basic V0VCU1RQOlN0ZWVsMjAyMiE=")
-                .header("Content-Type", "application/json")
-//                .bodyValue(header)
-                .retrieve()
-                .onStatus(HttpStatus::isError,
-                        response ->
-                        {
-                            //logTraceResponse(response);
-                            return response.bodyToMono(String.class) // error body as String or other class
-                                    .flatMap(error -> Mono.error(buildErrorStatus(error, response.statusCode().value()))); // throw a functional exception
-                        })
-                .bodyToMono(String.class).block();
-        success = success && buildMessageItems(crtlResponse, responses);
-
-        for (Details detail : details) {
-            crtlResponse = webClient.post()
-                    .uri(uriBuilder -> uriBuilder
-                            .path("/service/sgiweb.dll/Datasnap/Rest/TProductMethods/Request/DocumentDetail//")
-                            .queryParam("Company", "001")
-                            .build())
-                    .header("CTRL-Token", "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}")
-                    .header("Authorization", "Basic V0VCU1RQOlN0ZWVsMjAyMiE=")
-                    .header("Content-Type", "application/json")
-                    .bodyValue(detail)
-                    .retrieve()
-                    .onStatus(HttpStatus::isError,
-                            response ->
-                            {
-                                return response.bodyToMono(String.class) // error body as String or other class
-                                        .flatMap(error -> Mono.error(buildErrorStatus(error, response.statusCode().value()))); // throw a functional exception
-                            })
-                    .bodyToMono(String.class).block();
-            success = success && buildMessageItems(crtlResponse, responses);
-        }
-*/
-
     }
 
     private String unescape(String str) {
@@ -235,26 +193,11 @@ public class CTRLController implements InitializingBean
                                 .build());
     }
 
-    public static void logTraceResponse(ClientResponse response) {
-        //if (log.isTraceEnabled()) {
-            log.trace("Response status: {}", response.statusCode());
-            log.trace("Response headers: {}", response.headers().asHttpHeaders());
-            response.bodyToMono(String.class)
-                    .publishOn(Schedulers.boundedElastic())
-                    .subscribe(body -> log.trace("Response body: {}", body));
-       // }
-    }
-
     private void logJson(String json) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
         JsonElement je = jp.parse(json);
         log.info(gson.toJson(je));
     }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        log.info(ctrlServices.getAllHeaders().toString());
-        log.info(ctrlServices.getAllDetails("BSP0000006").toString());
-    }
+*/
 }

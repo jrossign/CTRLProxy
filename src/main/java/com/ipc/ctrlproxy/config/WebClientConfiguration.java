@@ -8,7 +8,6 @@ import com.ipc.ctrlproxy.model.status.Status;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
-import io.netty.handler.timeout.WriteTimeoutHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
