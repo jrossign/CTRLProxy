@@ -1,26 +1,24 @@
-package com.ipc.ctrlproxy.services;
+package com.ipc.ctrlproxy.translator;
 
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
-import com.ipc.ctrlproxy.model.steel.Item;
-import com.ipc.ctrlproxy.model.steel.SPOrder;
+import com.ipc.ctrlproxy.model.steel_po.Item;
+import com.ipc.ctrlproxy.model.steel_po.SPOrder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
-public class SteelToCTRLTranslator
+public class SteelPOToCTRLTranslator implements Translator
 {
-    private static final SimpleDateFormat STEEL_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
-    private static final SimpleDateFormat CTRL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat CTRL_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static final Map<String, String> UNITS = Map.of(
 
@@ -39,7 +37,7 @@ public class SteelToCTRLTranslator
 
         return Header.builder()
                 .type("BSP")
-                .document("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                .document(order.getNumber())
                 .intervenant(order.getSupplier())
                 //.description(supplierSuffix)
                 //.intervenant(supplierPrefix)
@@ -51,8 +49,8 @@ public class SteelToCTRLTranslator
                 .usagerInscripteur("WEBSTP")
                 //.dateModification(crtlDate) ne peut être modifié
                 //.usagerModificateur(order.getEmployee()) ne peut être modifié
-                .reference1("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
-                .reference2("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                .reference1(order.getNumber())
+                .reference2(order.getNumber())
                 .territoire("CA-QC")
                 .commentaireGeneral(Strings.isBlank(order.getComment())?null:order.getComment())
                 .compagnieSource("001")
@@ -72,17 +70,18 @@ public class SteelToCTRLTranslator
 
     public List<Details> getCTRLDetails(SPOrder order, String  action) {
         List<Details> list = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#0.000000", new DecimalFormatSymbols(Locale.ENGLISH));
         for (Item item : order.getItems()) {
 
             list.add(Details.builder()
                     .type("BSP")
-                    .document("BSP"+StringUtils.leftPad(order.getNumber(), 7, '0'))
+                    .document(order.getNumber())
                     //.ligne(String.valueOf(item.getOrderLine()))
                     .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
                     .transaction1Quantite(String.valueOf(item.getProductItem().getQuantity()))
                     //.quantiteSuspend(String.valueOf(item.getProductItem().getQuantity()))
                     //.transaction1Unite(UNITS.get(item.getValuationUnit()))
-                    .prixUnitaireTransaction1(item.getUnitaryPrice())
+                    .prixUnitaireTransaction1(df.format(Double.parseDouble(item.getTotalPrice()) /  item.getProductItem().getQuantity()))
                     //.grandTotalTransaction1(item.getTotalPrice())
                     //.quantiteSuspend("DONT KNOW HOW")
                     .descriptionLigne(getDescriptionLigne(item))
@@ -99,10 +98,10 @@ public class SteelToCTRLTranslator
     private String getDescriptionLigne(Item item) {
         String ligne = item.getProductItem().getName();
         if (item.getProductItem().getLength().getValue() > 0) {
-            ligne = ligne + " X" + String.valueOf(item.getProductItem().getLength().getValue()) + " " + item.getProductItem().getLength().getUom();
+            ligne = ligne + " X" + item.getProductItem().getLength().getValue() + " " + item.getProductItem().getLength().getUom();
         }
         if (item.getProductItem().getWidth().getValue() > 0) {
-            ligne = ligne + " X" + String.valueOf(item.getProductItem().getWidth().getValue()) + " " + item.getProductItem().getWidth().getUom();
+            ligne = ligne + " X" + item.getProductItem().getWidth().getValue() + " " + item.getProductItem().getWidth().getUom();
         }
         return ligne;
     }

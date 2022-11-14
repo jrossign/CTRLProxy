@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/SPDelivery"
+  },
+  "definitions": {
+    "SPDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Company": {
+          "type": "string"
+        },
+        "Division": {
+          "type": "string"
+        },
+        "Purchasing_Organization": {
+          "type": "string"
+        },
+        "Order_Number": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Supplier": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Action_Type": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Delivery_Number": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Delivery_Date": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Clear": {
+          "type": "boolean"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "required": [
+        "Action_Type",
+        "Clear",
+        "Company",
+        "Delivery_Date",
+        "Delivery_Number",
+        "Division",
+        "Items",
+        "Order_Number",
+        "Project",
+        "Purchasing_Organization",
+        "Supplier"
+      ],
+      "title": "SPDelivery"
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "InputItem": {
+          "$ref": "#/definitions/InputItem"
+        },
+        "Order_Line": {
+          "type": "integer"
+        },
+        "Order_Quantity": {
+          "type": "integer"
+        },
+        "Nesting": {
+          "type": "integer"
+        },
+        "Clear": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "Clear",
+        "InputItem",
+        "Nesting",
+        "Order_Line",
+        "Order_Quantity"
+      ],
+      "title": "Item"
+    },
+    "InputItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Company": {
+          "type": "string"
+        },
+        "Division": {
+          "type": "string"
+        },
+        "Purchasing_Organization": {
+          "type": "string"
+        },
+        "ProductItem": {
+          "$ref": "#/definitions/ProductItem"
+        },
+        "Action_Type": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Supplier": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Unitary_Price": {
+          "type": "number"
+        },
+        "Total_Price": {
+          "type": "number"
+        },
+        "Valuation_Unit": {
+          "type": "string"
+        },
+        "Input_Date": {
+          "type": "string",
+          "format": "integer"
+        },
+        "Section": {
+          "type": "string"
+        },
+        "Employee": {
+          "type": "string"
+        },
+        "ID_traceability": {
+          "type": "string"
+        },
+        "Certificate": {
+          "type": "string"
+        },
+        "Heat_Number": {
+          "type": "string"
+        },
+        "CCPU": {
+          "type": "string"
+        },
+        "External_Reference": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Action_Type",
+        "CCPU",
+        "Certificate",
+        "Company",
+        "Division",
+        "Employee",
+        "External_Reference",
+        "Heat_Number",
+        "ID_traceability",
+        "Input_Date",
+        "ProductItem",
+        "Project",
+        "Purchasing_Organization",
+        "Section",
+        "Supplier",
+        "Total_Price",
+        "Unitary_Price",
+        "Valuation_Unit"
+      ],
+      "title": "InputItem"
+    },
+    "ProductItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Profile": {
+          "type": "string"
+        },
+        "Material": {
+          "type": "string"
+        },
+        "Length": {
+          "$ref": "#/definitions/Length"
+        },
+        "Width": {
+          "$ref": "#/definitions/Length"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Warehouse": {
+          "type": "string"
+        },
+        "Storage": {
+          "type": "string"
+        },
+        "Color": {
+          "type": "string"
+        },
+        "Unit": {
+          "type": "string"
+        },
+        "Outline": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Color",
+        "Length",
+        "Material",
+        "Name",
+        "Outline",
+        "Profile",
+        "Quantity",
+        "Storage",
+        "Unit",
+        "Warehouse",
+        "Width"
+      ],
+      "title": "ProductItem"
+    },
+    "Length": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "UOM": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "UOM",
+        "Value"
+      ],
+      "title": "Length"
+    }
+  }
+}

@@ -1,21 +1,11 @@
 package com.ipc.ctrlproxy.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
 import com.ipc.ctrlproxy.model.status.MessageItem;
 import com.ipc.ctrlproxy.model.status.Status;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -28,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class CTRLOrderServices {
+public class CTRLOrderServices implements CTRLServices {
 
 
     @Autowired
@@ -141,30 +131,6 @@ public class CTRLOrderServices {
         }
 
         return statusHelper.buildStatus(success, success?"Success":"Problème à la création de détails", responses);
-    }
-
-
-    private void resetForUpdate(Details steelDetail, Details ctrlDetail) {
-        //steelDetail.setDocument(null);
-        //steelDetail.setType(null);
-        steelDetail.setActivite(null);
-        steelDetail.setDescriptionLigne(null);
-        steelDetail.setProjet(null);
-        steelDetail.setCompagnie(null);
-        steelDetail.setLigne(ctrlDetail.getLigne());
-    }
-
-    private Details removeBestMatch(List<Details> details, Details detail) {
-        FirstMatchPredicate fm = FirstMatchPredicate.builder().toMatch(detail).build();
-        boolean matched = details.removeIf(fm);
-        if (matched) {
-            return fm.getMatched();
-        }
-        return details.remove(0);
-    }
-
-    private boolean isIdentical(Details steelDetail, Details ctrlDetail) {
-        return steelDetail.getTransaction1Quantite().equals(ctrlDetail.getTransaction1Quantite());
     }
 
 

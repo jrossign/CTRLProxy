@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

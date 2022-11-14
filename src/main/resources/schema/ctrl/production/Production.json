@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Production",
+  "definitions": {
+    "Production": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "DateDocumentGenere": {
+          "type": "string",
+          "format": "date"
+        },
+        "Reference2": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "DateDocumentGenere",
+        "Reference2"
+      ],
+      "title": "Production"
+    }
+  }
+}
