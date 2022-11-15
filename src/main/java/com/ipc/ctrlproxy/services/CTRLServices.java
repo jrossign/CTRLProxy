@@ -2,8 +2,9 @@ package com.ipc.ctrlproxy.services;
 
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public interface CTRLServices {
 
@@ -18,18 +19,37 @@ public interface CTRLServices {
 
     default boolean isIdentical(Details steelDetail, Details ctrlDetail) {
         return steelDetail.getTransaction1Quantite().equals(ctrlDetail.getTransaction1Quantite()) &&
-                steelDetail.getPrixUnitaireTransaction1().equals(ctrlDetail.getPrixUnitaireTransaction1());
+               steelDetail.getPrixUnitaireTransaction1().equals(ctrlDetail.getPrixUnitaireTransaction1());
     }
 
     default void resetForUpdate(Details steelDetail, Details ctrlDetail) {
-        //steelDetail.setDocument(null);
-        //steelDetail.setType(null);
         steelDetail.setActivite(null);
         steelDetail.setDescriptionLigne(null);
         steelDetail.setProjet(null);
         steelDetail.setCompagnie(null);
         steelDetail.setLigne(ctrlDetail.getLigne());
-        steelDetail.setStatut("ACT");
+    }
+
+    default void resetForReceive(Details steelDetail, Details ctrlDetail) {
+        steelDetail.setActivite(null);
+        steelDetail.setDescriptionLigne(null);
+        steelDetail.setProjet(null);
+        steelDetail.setCompagnie(null);
+        steelDetail.setLigne(ctrlDetail.getLigne());
+    }
+
+    default Map<String, List<Details>> groupByDescription(List<Details> details)
+    {
+        return details
+                .stream()
+                .collect(Collectors.groupingBy(Details::getDescriptionLigne));
+    }
+
+    default Map<String, List<Details>> groupByDescription(Map<String, Details> details)
+    {
+        return details.values()
+                .stream()
+                .collect(Collectors.groupingBy(Details::getDescriptionLigne));
     }
 
 

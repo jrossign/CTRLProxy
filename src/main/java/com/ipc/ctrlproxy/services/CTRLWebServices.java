@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,23 +34,19 @@ public class CTRLWebServices implements InitializingBean  {
     private ObjectMapper mapper;
 
     public Map<String, Header> getAllCTRLHeaders() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-
         Request request = addAuthHeaders(new Request.Builder()
                 .url(URL_PREFIX + "DocumentEntete?Company=001&Filter={\"Type\":\"BSP\"}&Field=Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens,IdentifiantUnique,DocumentMaitre,Type,CommentaireGeneral")
                 .get());
-        Response response = client.newCall(request).execute();
+        Response response = buildClient().newCall(request).execute();
         String respBody = unescape(response.body().string());
         return Stream.of(mapper.readValue(respBody, Header[].class))
                 .collect(Collectors.toMap(Header::getDocument, data -> data));
     }
     public Map<String, Details> getAllCTRLDetails(String document) throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-
         Request request = addAuthHeaders(new Request.Builder()
                 .url(URL_PREFIX + "DocumentDetail//?Company=001&Filter={\"Type\":\"BSP\",\"Document\":\""+document+"\"}")
                 .get());
-        Response response = client.newCall(request).execute();
+        Response response = buildClient().newCall(request).execute();
         String respBody = unescape(response.body().string());
         return Stream.of(mapper.readValue(respBody, Details[].class))
                 .collect(Collectors.toMap(Details::getLigne, data -> data));
@@ -88,13 +85,21 @@ public class CTRLWebServices implements InitializingBean  {
     }
 
     private CTRLResponse send(Request.Builder request) throws IOException {
-
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Response response = client.newCall(addAuthHeaders(request)).execute();
+        Response response = buildClient().newCall(addAuthHeaders(request)).execute();
         String respBody = unescape(response.body().string());
         logJson(respBody);
 
         return CTRLResponse.builder().code(response.code()).body(respBody).build();
+    }
+
+    private OkHttpClient buildClient() {
+        return new OkHttpClient()
+                .newBuilder()
+                .callTimeout(Duration.ofSeconds(20))
+                .readTimeout(Duration.ofSeconds(20))
+                .retryOnConnectionFailure(true)
+                .addNetworkInterceptor(new RetryInterceptor())
+                .build();
     }
 
 

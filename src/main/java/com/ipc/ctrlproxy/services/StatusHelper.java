@@ -3,6 +3,7 @@ package com.ipc.ctrlproxy.services;
 import com.ipc.ctrlproxy.model.status.Message;
 import com.ipc.ctrlproxy.model.status.MessageItem;
 import com.ipc.ctrlproxy.model.status.Status;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class StatusHelper {
         return messages;
     }
     public boolean buildMessageItems(final String msg, final int status, final String body, final List<MessageItem> responses) {
-        boolean isSuccess = !body.toUpperCase().contains("ERROR"); // TODO
+        boolean isSuccess =
+                    !body.toUpperCase().contains("ERROR") &&
+                    HttpStatus.valueOf(status).is2xxSuccessful();
         String type = isSuccess?"S":"E";
         MessageItem item = MessageItem.builder()
                 .status(isSuccess?"1":"2")

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -45,17 +44,12 @@ public class CTRLReceiveServices implements CTRLServices {
         Header header = allHeaders.get(document);
 
         // Get CTRL details for this order mapped by line description
-        Map<String, List<Details>> ctrlByLineDesc =
-                webServices.getAllCTRLDetails(header.getDocument()).values()
-                        .stream()
-                        .collect(Collectors.groupingBy(Details::getDescriptionLigne));
+        Map<String, List<Details>> ctrlByLineDesc = groupByDescription(webServices.getAllCTRLDetails(header.getDocument()));
 
         // Map Steel details by line description
-        Map<String, List<Details>> steelByLineDesc = details
-                .stream()
-                .collect(Collectors.groupingBy(Details::getDescriptionLigne));
+        Map<String, List<Details>> steelByLineDesc = groupByDescription(details);
 
-        // Update CTRL header is not already in ACT state
+        // Update CTRL header if not already in ACT state
         if ( !"ACT".equals(header.getStatut())) {
             Header update = Header.builder()
                     .type(header.getType())
@@ -66,6 +60,9 @@ public class CTRLReceiveServices implements CTRLServices {
             log.info(mapper.writeValueAsString(update));
             CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + "//?Company=001", update);
             success = success && statusHelper.buildMessageItems("Update en ACT d'un header", resp.code, resp.body, responses);
+        }
+        else {
+            success = success && statusHelper.buildMessageItems("Header déjà en ACT", 200, header.getDocument(), responses);
         }
 
         // update CTRL details' Transaction2Quantite
@@ -78,7 +75,7 @@ public class CTRLReceiveServices implements CTRLServices {
                     if (!ctrlDetails.isEmpty()) {
                         Details ctrlBest = removeBestMatch(ctrlDetails, steelDetail);
 
-                        resetForUpdate(steelDetail, ctrlBest);
+                        resetForReceive(steelDetail, ctrlBest);
                         log.info(mapper.writeValueAsString(steelDetail));
                         CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001", steelDetail);
                         success = success && statusHelper.buildMessageItems("Reception d'un détail", resp.code, resp.body, responses);
@@ -88,10 +85,11 @@ public class CTRLReceiveServices implements CTRLServices {
                     }
                 }
             }
+            else {
+                success = false && statusHelper.buildMessageItems("Réception d'un détail manquant", 404, key, responses);
+            }
         }
 
-        // Update the SUS to ACT where needed
-        // TODO
 
         // Send Production request
         if (success) {

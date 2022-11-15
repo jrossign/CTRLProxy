@@ -43,6 +43,7 @@ public class SteelDeliveryToCTRLTranslator implements Translator
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
                     .activite("10010")
+                    .statut("ACT")
                     .build());
         }
         return list;

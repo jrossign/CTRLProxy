@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -53,14 +52,12 @@ public class CTRLOrderServices implements CTRLServices {
 
         if (success) {
 
-            Map<String, List<Details>> ctrlByLineDesc =
-                    webServices.getAllCTRLDetails(header.getDocument()).values()
-                            .stream()
-                            .collect(Collectors.groupingBy(Details::getDescriptionLigne));
 
-            Map<String, List<Details>> steelByLineDesc = details
-                            .stream()
-                            .collect(Collectors.groupingBy(Details::getDescriptionLigne));
+            // Get CTRL details for this order mapped by line description
+            Map<String, List<Details>> ctrlByLineDesc = groupByDescription(webServices.getAllCTRLDetails(header.getDocument()));
+
+            // Map Steel details by line description
+            Map<String, List<Details>> steelByLineDesc = groupByDescription(details);
 
             // First delete all entries not in Steel anymore
             for (String key : ctrlByLineDesc.keySet()) {
