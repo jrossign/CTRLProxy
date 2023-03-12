@@ -2,7 +2,7 @@ package com.ipc.ctrlproxy;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ipc.ctrlproxy.model.steel.SPOrder;
+import com.ipc.ctrlproxy.model.steel_po.SPOrder;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

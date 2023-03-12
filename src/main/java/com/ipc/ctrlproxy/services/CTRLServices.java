@@ -8,8 +8,17 @@ import java.util.stream.Collectors;
 
 public interface CTRLServices {
 
-    default Details removeBestMatch(List<Details> details, Details detail) {
-        FirstMatchPredicate fm = FirstMatchPredicate.builder().toMatch(detail).build();
+    default Details removeBestOrder(List<Details> details, Details detail) {
+        FirstOrderMatchPredicate fm = FirstOrderMatchPredicate.builder().toMatch(detail).build();
+        boolean matched = details.removeIf(fm);
+        if (matched) {
+            return fm.getMatched();
+        }
+        return details.remove(0);
+    }
+
+    default Details removeBestReceip(List<Details> details, Details detail) {
+        FirstReceipMatchPredicate fm = FirstReceipMatchPredicate.builder().toMatch(detail).build();
         boolean matched = details.removeIf(fm);
         if (matched) {
             return fm.getMatched();
@@ -35,6 +44,7 @@ public interface CTRLServices {
         steelDetail.setDescriptionLigne(null);
         steelDetail.setProjet(null);
         steelDetail.setCompagnie(null);
+        steelDetail.setActionType(null);
         steelDetail.setLigne(ctrlDetail.getLigne());
     }
 

@@ -86,9 +86,9 @@ public class SteelPOToCTRLTranslator implements Translator
                     //.quantiteSuspend("DONT KNOW HOW")
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
-                    .activite("10010")
+                    .activite(item.getSectionName())
                     .statut("SUS")
-                    //.ordre(item.getOrderLine())
+                    .ordre(item.getOrderLine())
                     //.timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
                     .build());
         }
@@ -97,10 +97,10 @@ public class SteelPOToCTRLTranslator implements Translator
 
     private String getDescriptionLigne(Item item) {
         String ligne = item.getProductItem().getName();
-        if (item.getProductItem().getLength().getValue() > 0) {
+        if (StringUtils.isNotBlank(item.getProductItem().getLength().getValue()) && !item.getProductItem().getLength().getValue().trim().equals("0")) {
             ligne = ligne + " X" + item.getProductItem().getLength().getValue() + " " + item.getProductItem().getLength().getUom();
         }
-        if (item.getProductItem().getWidth().getValue() > 0) {
+        if (StringUtils.isNotBlank(item.getProductItem().getWidth().getValue()) && !item.getProductItem().getWidth().getValue().trim().equals("0")) {
             ligne = ligne + " X" + item.getProductItem().getWidth().getValue() + " " + item.getProductItem().getWidth().getUom();
         }
         return ligne;

@@ -17,10 +17,10 @@
     "Activite": {
       "type": "string"
     },
-    "Extra": {
+    "Equipement": {
       "type": "string"
     },
-    "Equipement": {
+    "Extra": {
       "type": "string"
     },
     "CategorieCout": {
@@ -474,6 +474,9 @@
       "type": "string"
     },
     "TypeVentilation": {
+      "type": "string"
+    },
+    "ActionType": {
       "type": "string"
     }
   },

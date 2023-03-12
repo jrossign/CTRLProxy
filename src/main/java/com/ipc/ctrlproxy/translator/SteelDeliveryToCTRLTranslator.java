@@ -27,7 +27,7 @@ public class SteelDeliveryToCTRLTranslator implements Translator
 
     public Production getCTRLProductionRequest(SPDelivery order) throws ParseException {
         return Production.builder()
-                .dateDocumentGenere(CTRL_DATE_FORMAT.format(STEEL_DATE_FORMAT.parse(order.getDeliveryDate())))
+                .dateDocumentGenere(CTRL_DATE_FORMAT.format(STEEL_DATE_FORMAT.parse(order.getItems().get(0).getInputItem().getInputDate())))
                 .reference2(order.getDeliveryNumber())
                 .build();
     }
@@ -39,11 +39,13 @@ public class SteelDeliveryToCTRLTranslator implements Translator
                     .type("BSP")
                     .document(order.getOrderNumber())
                     .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
+                    //.transaction1Quantite(String.valueOf(item.getInputItem().getProductItem().getQuantity()))
                     .transaction2Quantite(String.valueOf(item.getOrderQuantity()))
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
                     .activite("10010")
                     .statut("ACT")
+                    .actionType(item.getInputItem().getActionType())
                     .build());
         }
         return list;
@@ -51,10 +53,10 @@ public class SteelDeliveryToCTRLTranslator implements Translator
 
     private String getDescriptionLigne(Item item) {
         String ligne = item.getInputItem().getProductItem().getName();
-        if (item.getInputItem().getProductItem().getLength().getValue() > 0) {
+        if (item.getInputItem().getProductItem().getLength() != null && item.getInputItem().getProductItem().getLength().getValue() > 0) {
             ligne = ligne + " X" + item.getInputItem().getProductItem().getLength().getValue() + " " + item.getInputItem().getProductItem().getLength().getUom();
         }
-        if (item.getInputItem().getProductItem().getWidth().getValue() > 0) {
+        if (item.getInputItem().getProductItem().getWidth() != null && item.getInputItem().getProductItem().getWidth().getValue() > 0) {
             ligne = ligne + " X" + item.getInputItem().getProductItem().getWidth().getValue() + " " + item.getInputItem().getProductItem().getWidth().getUom();
         }
         return ligne;

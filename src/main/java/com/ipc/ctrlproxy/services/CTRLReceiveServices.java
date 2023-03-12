@@ -34,17 +34,21 @@ public class CTRLReceiveServices implements CTRLServices {
         boolean success = true;
 
         try {
+            log.warn(mapper.writeValueAsString(pRequest));
             log.warn(mapper.writeValueAsString(details));
         }
         catch (Exception e) {}
 
 
         // Get our header from CTRL
-        Map<String, Header> allHeaders = webServices.getAllCTRLHeaders();
+        Map<String, Header> allHeaders = webServices.getAllCTRLOrderHeaders();
         Header header = allHeaders.get(document);
 
         // Get CTRL details for this order mapped by line description
-        Map<String, List<Details>> ctrlByLineDesc = groupByDescription(webServices.getAllCTRLDetails(header.getDocument()));
+        Map<String, List<Details>> ctrlOrdersByLineDesc = webServices.getAllCTRLOrders(header.getDocument());
+        log.info("ctrlOrdersByLineDesc : {}", ctrlOrdersByLineDesc.size());
+        Map<String, List<Details>> ctrlReceiptByLineDesc = webServices.getAllCTRLReceipt(header.getDocument());
+        log.info("ctrlReceiptByLineDesc : {}", ctrlReceiptByLineDesc.size());
 
         // Map Steel details by line description
         Map<String, List<Details>> steelByLineDesc = groupByDescription(details);
@@ -67,21 +71,32 @@ public class CTRLReceiveServices implements CTRLServices {
 
         // update CTRL details' Transaction2Quantite
         for (String key : steelByLineDesc.keySet()) {
-            if (ctrlByLineDesc.containsKey(key)) {
+            if (ctrlOrdersByLineDesc.containsKey(key)) {
                 List<Details> steelDetails = steelByLineDesc.get(key);
-                List<Details> ctrlDetails = ctrlByLineDesc.get(key);
+                List<Details> ctrlDetails = ctrlOrdersByLineDesc.get(key);
+                List<Details> ctrlReceipts = ctrlReceiptByLineDesc.get(key);
 
                 for (Details steelDetail : steelDetails) {
-                    if (!ctrlDetails.isEmpty()) {
-                        Details ctrlBest = removeBestMatch(ctrlDetails, steelDetail);
-
-                        resetForReceive(steelDetail, ctrlBest);
-                        log.info(mapper.writeValueAsString(steelDetail));
-                        CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001", steelDetail);
-                        success = success && statusHelper.buildMessageItems("Reception d'un détail", resp.code, resp.body, responses);
-
-                    } else {
-                        success = false && statusHelper.buildMessageItems("Réception d'un détail manquant", 404, steelDetail.getDescriptionLigne(), responses);
+                    if ("N".equalsIgnoreCase(steelDetail.getActionType())) {
+                        if (!ctrlDetails.isEmpty()) {
+                            Details ctrlBest = removeBestOrder(ctrlDetails, steelDetail);
+                            resetForReceive(steelDetail, ctrlBest);
+                            log.info("Sending RECEIVE: {}", mapper.writeValueAsString(steelDetail));
+                            CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001", steelDetail);
+                            log.info(mapper.writeValueAsString(resp));
+                            success = success && statusHelper.buildMessageItems("Réception d'un détail", resp.code, resp.body, responses);
+                        }
+                        else {
+                            success = false && statusHelper.buildMessageItems("Réception d'un détail manquant", 404, steelDetail.getDescriptionLigne(), responses);
+                        }
+                    }
+                    else if ("D".equalsIgnoreCase(steelDetail.getActionType())) {
+                        Details ctrlBest = removeBestReceip(ctrlReceipts, steelDetail);
+                        CTRLResponse resp = webServices.delete("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001");
+                        success = success && statusHelper.buildMessageItems("Renversement d'une réception d'un détail", resp.code, resp.body, responses);
+                    }
+                    else {
+                        success = false && statusHelper.buildMessageItems("Réception d'une réception avec action inconnue: " + steelDetail.getActionType(), 404, steelDetail.getDescriptionLigne(), responses);
                     }
                 }
             }
@@ -93,6 +108,7 @@ public class CTRLReceiveServices implements CTRLServices {
 
         // Send Production request
         if (success) {
+            log.info("Production : {}", mapper.writeValueAsString(pRequest));
             CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + "/Production?Company=001", pRequest);
             success = success && statusHelper.buildMessageItems("Production", resp.code, resp.body, responses);
         }

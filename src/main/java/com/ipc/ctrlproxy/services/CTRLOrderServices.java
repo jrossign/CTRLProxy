@@ -40,21 +40,21 @@ public class CTRLOrderServices implements CTRLServices {
         catch (Exception e) {}
 
 
-        Map<String, Header> allHeaders = webServices.getAllCTRLHeaders();
+        Map<String, Header> allHeaders = webServices.getAllCTRLOrderHeaders();
         if (allHeaders.containsKey(header.getDocument())) {
             log.info("Entête déjà créée, creation des détails...");
         }
         else {
             CTRLResponse resp = webServices.post("DocumentEntete//?Company=001", header);
             success = success && statusHelper.buildMessageItems("Création de l'entête", resp.code, resp.body, responses);
-            allHeaders = webServices.getAllCTRLHeaders();
+            allHeaders = webServices.getAllCTRLOrderHeaders();
         }
 
         if (success) {
 
 
             // Get CTRL details for this order mapped by line description
-            Map<String, List<Details>> ctrlByLineDesc = groupByDescription(webServices.getAllCTRLDetails(header.getDocument()));
+            Map<String, List<Details>> ctrlByLineDesc = webServices.getAllCTRLOrders(header.getDocument());
 
             // Map Steel details by line description
             Map<String, List<Details>> steelByLineDesc = groupByDescription(details);
@@ -87,7 +87,7 @@ public class CTRLOrderServices implements CTRLServices {
 
                     for (Details steelDetail : steelDetails) {
                         if (!ctrlDetails.isEmpty()) {
-                            Details ctrlBest = removeBestMatch(ctrlDetails, steelDetail);
+                            Details ctrlBest = removeBestOrder(ctrlDetails, steelDetail);
                             // do not update identical details
                             boolean identical = isIdentical(steelDetail, ctrlBest);
                             if (!identical) {

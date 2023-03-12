@@ -27,8 +27,10 @@ public class RetryInterceptor implements Interceptor {
                 log.error("Request was not successful: {} . Retrying." , tryCount);
             }finally{
                 assert response != null;
-                if (!responseOK)
+                if (!responseOK) {
                     response.close();
+                    chain.call().clone().execute();
+                }
                 tryCount++;
             }
         }
