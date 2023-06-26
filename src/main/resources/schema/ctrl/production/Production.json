@@ -6,6 +6,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "DateModification": {
+          "type": "string",
+          "format": "date"
+        },
         "DateDocumentGenere": {
           "type": "string",
           "format": "date"

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,8 @@ public class SteelDeliveryToCTRLTranslator implements Translator
 
     public Production getCTRLProductionRequest(SPDelivery order) throws ParseException {
         return Production.builder()
-                .dateDocumentGenere(CTRL_DATE_FORMAT.format(STEEL_DATE_FORMAT.parse(order.getItems().get(0).getInputItem().getInputDate())))
+                .dateDocumentGenere(CTRL_DATE_FORMAT.format(STEEL_DATE_FORMAT.parse(order.getDeliveryDate())))
+                .dateModification(CTRL_DATE_FORMAT.format(new Date()))
                 .reference2(order.getDeliveryNumber())
                 .build();
     }
@@ -40,7 +42,9 @@ public class SteelDeliveryToCTRLTranslator implements Translator
                     .document(order.getOrderNumber())
                     .projet(StringUtils.leftPad(order.getProject(), 4, '0'))
                     //.transaction1Quantite(String.valueOf(item.getInputItem().getProductItem().getQuantity()))
-                    .transaction2Quantite(String.valueOf(item.getOrderQuantity()))
+                    .transaction2Quantite(String.valueOf(item.getInputItem().getProductItem().getQuantity()))
+                    .prixUnitaireTransaction1(String.valueOf(item.getInputItem().getUnitaryPrice()))
+                    .prixUnitaireTransaction2(String.valueOf(item.getInputItem().getUnitaryPrice()))
                     .descriptionLigne(getDescriptionLigne(item))
                     .compagnie("001")
                     .activite("10010")

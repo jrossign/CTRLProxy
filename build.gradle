@@ -8,7 +8,7 @@ apply plugin: 'jsonschema2pojo'
 
 
 group = 'com.ipc'
-version = '0.0.1-SNAPSHOT'
+version = ''
 sourceCompatibility = '11'
 
 configurations {
@@ -31,6 +31,10 @@ dependencies {
     implementation 'com.google.code.gson:gson'
     implementation 'org.jsonschema2pojo:jsonschema2pojo-core:1.1.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     compileOnly 'org.projectlombok:lombok'

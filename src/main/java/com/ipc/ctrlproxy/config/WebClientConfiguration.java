@@ -10,7 +10,6 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,10 +30,11 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @Slf4j
-public class WebClientConfiguration implements InitializingBean
+public class WebClientConfiguration
 {
     @Autowired
     private CTRLConfig config;
+
 
     @Bean(name = "CRTLWebClient")
     public WebClient getCRTLWebClient()
@@ -144,10 +144,4 @@ public class WebClientConfiguration implements InitializingBean
                 .build();
     }
 
-
-    @Override
-    public void afterPropertiesSet() throws Exception
-    {
-
-    }
 }

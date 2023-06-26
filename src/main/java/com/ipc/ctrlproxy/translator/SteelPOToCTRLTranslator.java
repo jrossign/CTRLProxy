@@ -70,7 +70,7 @@ public class SteelPOToCTRLTranslator implements Translator
 
     public List<Details> getCTRLDetails(SPOrder order, String  action) {
         List<Details> list = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("#0.000000", new DecimalFormatSymbols(Locale.ENGLISH));
+        DecimalFormat df = new DecimalFormat("#0.0000", new DecimalFormatSymbols(Locale.ENGLISH));
         for (Item item : order.getItems()) {
 
             list.add(Details.builder()
@@ -81,7 +81,7 @@ public class SteelPOToCTRLTranslator implements Translator
                     .transaction1Quantite(String.valueOf(item.getProductItem().getQuantity()))
                     //.quantiteSuspend(String.valueOf(item.getProductItem().getQuantity()))
                     //.transaction1Unite(UNITS.get(item.getValuationUnit()))
-                    .prixUnitaireTransaction1(df.format(Double.parseDouble(item.getTotalPrice()) /  item.getProductItem().getQuantity()))
+                    .prixUnitaireTransaction1(item.getUnitaryPrice())
                     //.grandTotalTransaction1(item.getTotalPrice())
                     //.quantiteSuspend("DONT KNOW HOW")
                     .descriptionLigne(getDescriptionLigne(item))

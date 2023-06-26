@@ -22,9 +22,11 @@ public class FirstOrderMatchPredicate implements Predicate<Details> {
     @Override
     public boolean test(Details d) {
         if (matched.get() == null) {
-            if ((Double.parseDouble(d.getTransaction1Quantite()) == Double.parseDouble(toMatch.getTransaction2Quantite())) && hasEnoughSuspendedQty(d, toMatch)) {
-                matched.set(d);
-                return true;
+            if (d.getTransaction1Quantite() != null && toMatch.getTransaction2Quantite() != null && d.getQuantiteSuspend() != null) {
+                if ((Double.parseDouble(d.getTransaction1Quantite()) == Double.parseDouble(toMatch.getTransaction2Quantite())) && hasEnoughSuspendedQty(d, toMatch)) {
+                    matched.set(d);
+                    return true;
+                }
             }
         }
         return false;

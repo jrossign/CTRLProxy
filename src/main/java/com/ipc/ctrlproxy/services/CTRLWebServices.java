@@ -16,7 +16,11 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.text.translate.AggregateTranslator;
+import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
+import org.apache.commons.lang3.text.translate.OctalUnescaper;
+import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,8 +56,10 @@ public class CTRLWebServices implements InitializingBean  {
     private Map<String, Header> getAllCTRLHeaders(String type, String document) throws IOException {
         String docuParam = document!=null?",\"DocumentMaitre\":\""+document+"\"":"";
         String fieldsParam = "&Field=Document,Intervenant,NomIntervenant,Description,Statut,DateDocument,SousTotal,MontantSuspens,IdentifiantUnique,DocumentMaitre,Type,CommentaireGeneral";
+        String url = config.getUrlPrefix() + "DocumentEntete?Company=001&Filter={\"Type\":\""+type+"\""+docuParam+"}"+fieldsParam;
+        log.info("getAllCTRLHeaders({}, {}) using url : {}", type, document, url);
         Request request = addAuthHeaders(new Request.Builder()
-                .url(config.getUrlPrefix() + "DocumentEntete?Company=001&Filter={\"Type\":\""+type+"\""+docuParam+"}"+fieldsParam)
+                .url(url)
                 .get());
         Response response = buildClient().newCall(request).execute();
         String respBody = unescape(response.body().string());
@@ -80,11 +86,10 @@ public class CTRLWebServices implements InitializingBean  {
         return Stream.of(mapper.readValue(respBody, Details[].class))
                 .collect(Collectors.groupingBy(Details::getDescriptionLigne));
     }
-
     private Request addAuthHeaders(Request.Builder builder) {
-        builder.addHeader("CTRL-Token", "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}")
+        builder.addHeader("CTRL-Token", config.getToken())
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Basic V0VCU1RQOlN0ZWVsMjAyMiE=");
+                .addHeader("Authorization", config.getAuth());
         return builder.build();
     }
 
@@ -97,7 +102,9 @@ public class CTRLWebServices implements InitializingBean  {
     public CTRLResponse post(String uri, Object payload) throws IOException {
 
         MediaType mediaType = MediaType.parse("application/json");
-        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, mapper.writer(filters).writeValueAsString(payload));
+        String json = mapper.writer(filters).writeValueAsString(payload);
+
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, json);
 
         return send(new Request.Builder()
                 .url(config.getUrlPrefix() + uri)
@@ -106,7 +113,8 @@ public class CTRLWebServices implements InitializingBean  {
     public CTRLResponse put(String uri, Object payload) throws IOException {
 
         MediaType mediaType = MediaType.parse("application/json");
-        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, mapper.writer(filters).writeValueAsString(payload));
+        String json = mapper.writer(filters).writeValueAsString(payload);
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, json);
 
         return send(new Request.Builder()
                 .url(config.getUrlPrefix() + uri)
@@ -135,9 +143,10 @@ public class CTRLWebServices implements InitializingBean  {
     }
 
 
-    private String unescape(String str) {
+    public static String unescape(String str) {
         if (str.contains("\\u")) {
-            return StringEscapeUtils.unescapeJava(str);
+            return new AggregateTranslator(new UnicodeUnescaper()).translate(str);
+            //return StringEscapeUtils.unescapeJava(str);
         }
         return str;
     }
@@ -155,9 +164,9 @@ public class CTRLWebServices implements InitializingBean  {
         filters = new SimpleFilterProvider().addFilter("actionTypeFilter", actionTypeFilter);
 
         //logJson(mapper.writeValueAsString(getAllCTRLOrderHeaders()));
-        logJson(mapper.writeValueAsString(getAllCTRLReceiptHeaders("BSP00115")));
-        logJson(mapper.writeValueAsString(getAllCTRLOrders("BSP00115")));
-        logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00115")));
+        logJson(mapper.writeValueAsString(getAllCTRLReceiptHeaders("BSP00281")));
+        logJson(mapper.writeValueAsString(getAllCTRLOrders("BSP00281")));
+        logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00281")));
     }
 
 }

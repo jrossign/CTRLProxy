@@ -77,7 +77,7 @@
           "type": "integer"
         },
         "Order_Quantity": {
-          "type": "integer"
+          "type": "string"
         },
         "Nesting": {
           "type": "integer"
@@ -199,7 +199,7 @@
           "$ref": "#/definitions/Length"
         },
         "Quantity": {
-          "type": "integer"
+          "type": "string"
         },
         "Warehouse": {
           "type": "string"

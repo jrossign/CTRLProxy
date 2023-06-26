@@ -1,18 +1,18 @@
 package com.ipc.ctrlproxy.dao;
 
+import com.ipc.ctrlproxy.model.robotsoudeur.Piece;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 @Slf4j
-@Component
+//@Component
 public class LaincoIntranetDAO
 {
 
@@ -58,5 +58,69 @@ public class LaincoIntranetDAO
                         .hours(new double[]{rs.getDouble(9),rs.getDouble(10),rs.getDouble(11),rs.getDouble(12),rs.getDouble(13),rs.getDouble(14),rs.getDouble(15)})
                         .build()
         );
+    }
+
+
+    public List<String> getProjets(String dateMin) {
+        return jdbc.queryForList("select code_projet from projet where cree_quand >= :dateCreation order by cree_quand", Map.of("dateCreation", dateMin), String.class);
+    }
+
+    public List<Piece> getPieces(String noProjet) {
+        String sql= "SELECT \n" +
+                "    a.id,\n" +
+                "    p.code_projet,\n" +
+                "    p.titre,\n" +
+                "    a.marque_assemblage,\n" +
+                "    a.marque_piece,\n" +
+                "    a.quantite,\n" +
+                "    a.cree_quand,\n" +
+                "    p.metrique,\n" +
+                "    IFNULL(pp.no_dessin, pp2.no_dessin) as no_dessin,\n" +
+                "    IFNULL(pp.poids,  pm.poids) as poids, \n" +
+                "    IFNULL(pp.poids_assemblage, pp2.poids_assemblage) as poids_assemblage,\n" +
+                "    IFNULL(pp.type, pm.type) as type, \n" +
+                "    IFNULL(pp.longueur, pm.longueur) as longueur, \n" +
+                "    IFNULL(pp.description, pm.description) as description, \n" +
+                "    concat(\"http://intranet/data/projet/\",p.chemin,\"/_dessins/\",pd.fichier) as dessin\n" +
+                "FROM projet_dessin_kiss_assemblage AS a\n" +
+                "INNER JOIN projet AS p ON p.no_projet = a.no_projet\n" +
+                "LEFT JOIN projet_dessin_kiss AS pp ON pp.no_projet = a.no_projet AND pp.marque_piece = a.marque_piece and pp.marque_assemblage = a.marque_assemblage\n" +
+                "LEFT JOIN projet_dessin_kiss AS pp2 ON pp2.no_projet = a.no_projet AND pp2.marque_piece = a.marque_assemblage and  pp2.marque_assemblage = a.marque_assemblage\n" +
+                "LEFT JOIN projet_dessin as pd on pd.no_projet = a.no_projet and pd.no_dessin = IFNULL(pp.no_dessin, pp2.no_dessin)\n" +
+                "LEFT JOIN projet_dessin_kiss_materiel AS pm ON pm.no_projet = a.no_projet AND pm.marque_piece = a.marque_piece\n" +
+                "WHERE code_projet = :projectId \n" +
+                "ORDER BY a.marque_assemblage,  a.Id;"    ;
+
+        final TreeSet<String> badLengths = new TreeSet<>();
+        List<Piece> liste = jdbc.query(sql, Map.of("projectId", noProjet), (rs, rowNum) -> {
+                double longueur = -1;
+                try {
+                    longueur = rs.getDouble("longueur");
+                } catch (Exception e){
+                    badLengths.add(rs.getString("longueur"));
+                };
+                return Piece.builder()
+                        .id(rs.getString("id"))
+                        .projet(rs.getString("code_projet"))
+                        .metric(rs.getString("metrique").equals("1"))
+                        .titreProjet(rs.getString("titre"))
+                        .assemblage(rs.getString("marque_assemblage"))
+                        .piece(rs.getString("marque_piece"))
+                        .quantite(rs.getInt("quantite"))
+                        .creation(rs.getDate("cree_quand"))
+                        .dessin(rs.getString("no_dessin"))
+                        .poids(rs.getDouble("poids"))
+                        .poidsAssemblage(rs.getDouble("poids_assemblage"))
+                        .type(rs.getString("type"))
+                        .longueur(longueur)
+                        .description(rs.getString("description"))
+                        .url(rs.getString("dessin"))
+                        .build();
+
+            });
+        if (!badLengths.isEmpty()) {
+            log.info("{} : {}", noProjet, badLengths.toString());
+        }
+        return liste;
     }
 }

@@ -4,8 +4,9 @@ spring:
 
 ctrl:
   hostname: 192.168.3.5
-  port: 8002
-  token: "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}"
+  port: 8000
+  token: "{5BE619BF-BE46-472B-B4B1-024FA7CF4725}"
   auth: "Basic V0VCU1RQOlN0ZWVsMjAyMiE="
+
 
 logFolder: C:/Temp/CTRLProxyLogs

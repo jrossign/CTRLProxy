@@ -16,6 +16,8 @@ public class CTRLConfig implements InitializingBean
 
     private String hostname;
     private int port;
+    private String token;
+    private String auth;
 
     public String getUrlPrefix() {
         return "http://" + hostname + ":" + port + URL_PREFIX;
@@ -23,6 +25,6 @@ public class CTRLConfig implements InitializingBean
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("Connecting to CTRL on {}:{}", hostname, port);
+        log.info("Connecting to CTRL on {}:{} {}", hostname, port, token);
     }
 }
