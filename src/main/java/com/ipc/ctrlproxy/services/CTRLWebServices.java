@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ipc.ctrlproxy.config.CTRLConfig;
+import com.ipc.ctrlproxy.model.CTRLResponse;
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +17,14 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
-import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
-import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.sql.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +103,7 @@ public class CTRLWebServices implements InitializingBean  {
         MediaType mediaType = MediaType.parse("application/json");
         String json = mapper.writer(filters).writeValueAsString(payload);
 
-        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, json);
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(json, mediaType);
 
         return send(new Request.Builder()
                 .url(config.getUrlPrefix() + uri)
@@ -130,7 +129,7 @@ public class CTRLWebServices implements InitializingBean  {
     }
 
     private OkHttpClient buildClient() {
-        OkHttpClient client = new OkHttpClient()
+        return new OkHttpClient()
                 .newBuilder()
                 .callTimeout(Duration.ofSeconds(20))
                 .readTimeout(Duration.ofSeconds(20))
@@ -139,7 +138,6 @@ public class CTRLWebServices implements InitializingBean  {
                 .build();
         //client.networkInterceptors().add(new RetryAndFollowUpInterceptor(client));
 
-        return client;
     }
 
 
@@ -163,10 +161,28 @@ public class CTRLWebServices implements InitializingBean  {
         SimpleBeanPropertyFilter actionTypeFilter = SimpleBeanPropertyFilter.serializeAllExcept("actionType");
         filters = new SimpleFilterProvider().addFilter("actionTypeFilter", actionTypeFilter);
 
-        //logJson(mapper.writeValueAsString(getAllCTRLOrderHeaders()));
+        logJson(mapper.writeValueAsString(getAllCTRLOrderHeaders()));
         logJson(mapper.writeValueAsString(getAllCTRLReceiptHeaders("BSP00281")));
         logJson(mapper.writeValueAsString(getAllCTRLOrders("BSP00281")));
         logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00281")));
+
+        try {
+            DriverManager.registerDriver( (Driver) Class.forName( "com.sybase.jdbc4.jdbc.SybDriver").newInstance());
+            Connection con = DriverManager.getConnection("jdbc:sybase:Tds:192.168.3.4:6262", "AdsExt", "LectureSeulement");
+
+            Statement stmt = con.createStatement();
+            ResultSet rs   = stmt.executeQuery("SELECT * FROM \"ci001-IS11TRCO\"");
+
+            while ( rs.next() ) {
+                String col = rs.getString(0);
+                System.out.println(col);
+            }
+            con.close();
+            filters = filters;
+        }
+        catch (Exception e) {
+            log.error("boom", e);
+        }
     }
 
 }

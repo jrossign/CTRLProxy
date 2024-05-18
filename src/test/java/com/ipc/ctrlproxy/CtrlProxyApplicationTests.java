@@ -2,8 +2,9 @@ package com.ipc.ctrlproxy;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipc.ctrlproxy.config.CTRLConfig;
 import com.ipc.ctrlproxy.model.steel_po.SPOrder;
-import com.ipc.ctrlproxy.services.CTRLWebServices;
+import lombok.SneakyThrows;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.ResourceUtils;
@@ -22,7 +22,6 @@ import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +33,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = MockWebServerInitializer.class)
 @ActiveProfiles("test")
-@Sql({"/h2.sql", "/achat_commande.sql", "/general_departement.sql", "/general_departement_tache.sql", "/general_fonction.sql", "/general_punch.sql", "/general_employe.sql", "/mysql_functions.sql"})
+//@Sql({"/h2.sql", "/achat_commande.sql", "/general_departement.sql", "/general_departement_tache.sql", "/general_fonction.sql", "/general_punch.sql", "/general_employe.sql", "/mysql_functions.sql"})
 class CtrlProxyApplicationTests
 {
     @Autowired
@@ -43,34 +42,41 @@ class CtrlProxyApplicationTests
     @Autowired
     private MockWebServer ctrlWebServer;
 
+    @Autowired
+    private CTRLConfig ctrlConfig;
+
+
     private boolean fail = false;
 
     @BeforeEach
-    public void init()
-    {
-        webTestClient = webTestClient.mutate()
+    public void init() {
+        this.ctrlConfig.setPort(MockWebServerInitializer.get().getPort());
+        /*webTestClient = webTestClient.mutate()
                 .responseTimeout(Duration.ofSeconds(5))
-                .build();
+                .build();*/
 
         fail = false;
         final Dispatcher dispatcher = new Dispatcher() {
 
             @Override
-            public MockResponse dispatch (RecordedRequest request) throws InterruptedException {
+            public MockResponse dispatch (RecordedRequest request) {
 
                 if (fail) {
                     return new MockResponse().setResponseCode(500).setBody("{\\\"status\\\":\\\"CRTL Error message\\\"}");
                 }
-                switch (request.getPath()) {
-                    case "/header": {
-                        System.err.println("CTRL received request : " + request.getBody().readUtf8());
-                        return new MockResponse().setResponseCode(200).setBody("{\\\"status\\\":\\\"HEADER SUCCESS\\\"}");
-                    }
+                if (request.getPath().contains("/DocumentEntete")) {
+                    System.err.println("CTRL received request : " + request.getPath());
+                    return new MockResponse().setResponseCode(200).setBody(load("classpath:messages/ctrl/header-1.json"));
+                }
+                if (request.getPath().contains("/DocumentDetail")) {
+                    System.err.println("CTRL received request : " + request.getPath());
+                    return new MockResponse().setResponseCode(200).setBody(load("classpath:messages/ctrl/details-1.json"));
+                }/*
                     case "/details": {
                         System.err.println("CTRL received request : " + request.getBody().readUtf8());
                         return new MockResponse().setResponseCode(200).setBody("{\\\"status\\\":\\\"DETAILS SUCCESS\\\"}");
                     }
-                }
+                }*/
                 return new MockResponse().setResponseCode(404);
             }
         };
@@ -230,7 +236,8 @@ class CtrlProxyApplicationTests
         return mapper.readValue(content, new TypeReference<List<SPOrder>>(){});
     }
 
-    public String load(String path) throws Exception
+    @SneakyThrows
+    public String load(String path)
     {
         File file = ResourceUtils.getFile(path);
         return new String(Files.readAllBytes(file.toPath()));

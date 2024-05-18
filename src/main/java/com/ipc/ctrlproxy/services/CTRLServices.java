@@ -37,6 +37,7 @@ public interface CTRLServices {
         steelDetail.setProjet(null);
         steelDetail.setCompagnie(null);
         steelDetail.setLigne(ctrlDetail.getLigne());
+        steelDetail.setOrdre(ctrlDetail.getOrdre());
     }
 
     default void resetForReceive(Details steelDetail, Details ctrlDetail) {
@@ -46,6 +47,7 @@ public interface CTRLServices {
         steelDetail.setCompagnie(null);
         steelDetail.setActionType(null);
         steelDetail.setLigne(ctrlDetail.getLigne());
+        steelDetail.setOrdre(ctrlDetail.getOrdre());
     }
 
     default Map<String, List<Details>> groupByDescription(List<Details> details)

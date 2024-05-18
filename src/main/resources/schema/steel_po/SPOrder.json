@@ -155,6 +155,9 @@
         "Quantity": {
           "type": "string"
         },
+        "CancelledQuantity": {
+          "type": "string"
+        },
         "Warehouse": {
           "type": "string"
         },
@@ -184,6 +187,7 @@
         "Outline",
         "Profile",
         "Quantity",
+        "CancelledQuantity",
         "Storage",
         "Unit",
         "Warehouse",

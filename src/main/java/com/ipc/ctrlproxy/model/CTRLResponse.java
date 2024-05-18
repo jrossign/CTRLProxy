@@ -1,4 +1,4 @@
-package com.ipc.ctrlproxy.services;
+package com.ipc.ctrlproxy.model;
 
 import lombok.Builder;
 

@@ -1,6 +1,7 @@
 package com.ipc.ctrlproxy.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipc.ctrlproxy.model.CTRLResponse;
 import com.ipc.ctrlproxy.model.ctrl.detail.Details;
 import com.ipc.ctrlproxy.model.ctrl.header.Header;
 import com.ipc.ctrlproxy.model.status.MessageItem;

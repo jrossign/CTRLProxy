@@ -16,3 +16,5 @@ spring:
 
 ctrl:
   hostname: localhost
+  token: "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}"
+  auth: "Basic V0VCU1RQOlN0ZWVsMjAyMiE="

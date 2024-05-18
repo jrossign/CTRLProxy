@@ -73,6 +73,7 @@ public class SteelPOToCTRLTranslator implements Translator
         DecimalFormat df = new DecimalFormat("#0.0000", new DecimalFormatSymbols(Locale.ENGLISH));
         for (Item item : order.getItems()) {
 
+
             list.add(Details.builder()
                     .type("BSP")
                     .document(order.getNumber())
@@ -89,6 +90,7 @@ public class SteelPOToCTRLTranslator implements Translator
                     .activite(item.getSectionName())
                     .statut("SUS")
                     .ordre(item.getOrderLine())
+                    .quantiteAnnulee(item.getProductItem().getCancelledQuantity())
                     //.timestampDerniereSauvegarde(CTRL_DATE_TIME_FORMAT.format(new Date()))
                     .build());
         }
