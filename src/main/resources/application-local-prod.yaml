@@ -1,0 +1,14 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+ctrl:
+  hostname: 192.168.3.5
+  port: 8002
+  token: "{3F2DB33F-902E-45BC-98C3-C5F18F7019AE}"
+  auth: "Basic V0VCU1RQOlN0ZWVsMjAyMiE="
+
+logFolder: logs
+
+server:
+  port: 8081

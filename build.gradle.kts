@@ -39,7 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jersey")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation("org.apache.commons:commons-csv:1.11.0")
     implementation("com.google.code.gson:gson")
     implementation("org.jsonschema2pojo:jsonschema2pojo-core:1.2.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
