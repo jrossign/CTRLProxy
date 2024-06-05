@@ -1,4 +1,5 @@
 import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
 
 
 plugins {
@@ -26,6 +27,9 @@ repositories {
     maven {
         url = uri("https://maven.jumpmind.com/repo/")
     }
+    flatDir {
+        dirs("/Users/Jean-Yves/Data/Projets/CTRLProxy/libs/")
+    }
 
 }
 
@@ -35,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jersey")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("com.zaxxer:HikariCP:5.1.0")
     implementation("com.google.code.gson:gson")
     implementation("org.jsonschema2pojo:jsonschema2pojo-core:1.2.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
@@ -42,12 +47,11 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.5")
     implementation("com.google.guava:guava:33.2.0-jre")
     implementation("org.apache.commons:commons-lang3:3.14.0")
-    implementation("jdbc.sybase:jconnect:7.7")
 
     compileOnly("org.projectlombok:lombok")
     compileOnly("io.github.paulushcgcj:helper-js2pojo:1.0.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("mysql:mysql-connector-java:8.0.22")
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
 

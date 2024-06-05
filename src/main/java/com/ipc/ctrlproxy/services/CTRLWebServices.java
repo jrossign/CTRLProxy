@@ -21,10 +21,11 @@ import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,11 @@ public class CTRLWebServices implements InitializingBean  {
 
     @Autowired
     private ObjectMapper mapper;
+
+
+    @Autowired
+    @Qualifier(value="projetJdbcTemplate")
+    private JdbcTemplate projetJdbcTemplate;
 
     private FilterProvider filters;
 
@@ -167,21 +173,37 @@ public class CTRLWebServices implements InitializingBean  {
         logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00281")));
 
         try {
-            DriverManager.registerDriver( (Driver) Class.forName( "com.sybase.jdbc4.jdbc.SybDriver").newInstance());
-            Connection con = DriverManager.getConnection("jdbc:sybase:Tds:192.168.3.4:6262", "AdsExt", "LectureSeulement");
+            log.info("Trying Advantage Driver");
 
-            Statement stmt = con.createStatement();
-            ResultSet rs   = stmt.executeQuery("SELECT * FROM \"ci001-IS11TRCO\"");
+            Class.forName("com.sap.jdbc.advantage.ADSDriver");
 
-            while ( rs.next() ) {
-                String col = rs.getString(0);
-                System.out.println(col);
-            }
-            con.close();
-            filters = filters;
-        }
-        catch (Exception e) {
-            log.error("boom", e);
+            int count = projetJdbcTemplate.queryForObject("SELECT count(1) FROM  \"ci001-is17dode\"  IS17DODE\n" +
+                    "      LEFT OUTER JOIN  \"ci001-is16doen\"  IS16DOEN ON\n" +
+                    "     (IS16DOEN.FI16TYPCOD = IS17DODE.FI16TYPCOD)\n" +
+                    "      AND (IS16DOEN.FI16DOCCOD = IS17DODE.FI16DOCCOD)\n" +
+                    "      LEFT OUTER JOIN  \"//ctrl-lainco-0/ctrl/projet/data/smigg.add\".\"ci001-es02acti\"  ES02ACTI ON\n" +
+                    "     (ES02ACTI.FE02ACTCOD = IS17DODE.FI17ACTCOD)\n" +
+                    "WHERE\n" +
+                    "      IS17DODE.FI16TYPCOD IN ('BSP','RSP','FSP','BCS','BCF','RCF','FFF','BSP','RSP','FSP','BCS','BCF','RCF','FFF')\n" +
+                    "       AND IS17DODE.FI17PRJCOD = '0955';", Integer.class);
+
+            /*
+            ADSConnection conn = (ADSConnection)DriverManager.getConnection("jdbc:sap:advantage://192.168.3.4:6262/ctrl/projet/data/smigg.add;user=AdsExt;password=LectureSeulement");
+
+            ResultSet rSet = conn.createStatement().executeQuery("SELECT count(1) FROM  \"ci001-is17dode\"  IS17DODE\n" +
+                            "      LEFT OUTER JOIN  \"ci001-is16doen\"  IS16DOEN ON\n" +
+                            "     (IS16DOEN.FI16TYPCOD = IS17DODE.FI16TYPCOD)\n" +
+                            "      AND (IS16DOEN.FI16DOCCOD = IS17DODE.FI16DOCCOD)\n" +
+                            "      LEFT OUTER JOIN  \"//ctrl-lainco-0/ctrl/projet/data/smigg.add\".\"ci001-es02acti\"  ES02ACTI ON\n" +
+                            "     (ES02ACTI.FE02ACTCOD = IS17DODE.FI17ACTCOD)\n" +
+                            "WHERE\n" +
+                            "      IS17DODE.FI16TYPCOD IN ('BSP','RSP','FSP','BCS','BCF','RCF','FFF','BSP','RSP','FSP','BCS','BCF','RCF','FFF')\n" +
+                            "       AND IS17DODE.FI17PRJCOD = '0955';");
+            rSet.next();
+*/
+            log.info("Counted : {}", count);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
