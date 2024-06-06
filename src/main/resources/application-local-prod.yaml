@@ -45,3 +45,6 @@ queries:
              WHERE
                 IS17DODE.FI16TYPCOD IN ('BSP','RSP','FSP','BCS','BCF','RCF','FFF','BSP','RSP','FSP','BCS','BCF','RCF','FFF') 
                 AND IS17DODE.FI17PRJCOD = ? ;
+  fin_de_mois:
+    connection: dossier
+    sql: select count(1) as COUNTED from "ls01pwem"

@@ -10,15 +10,16 @@ import java.sql.*;
 @Component
 public class DataSourceConfig
 {
-    private static final String VALIDATION_QUERY = "select count(1) from \"ls01pwem\"";
+    private final ADSConfig adsConfig;
 
-    @Autowired
-    private ADSConfig adsConfig;
+    public DataSourceConfig(@Autowired ADSConfig adsConfig) {
+        this.adsConfig = adsConfig;
+    }
 
     public Connection getConnection(String name) throws ClassNotFoundException, SQLException {
         ADSConnection conn = adsConfig.getAds().get(name);
         if (conn.getConnection() != null) {
-            if (!validateConnection(conn.getConnection())) {
+            if (!validateConnection(conn)) {
                 conn.setConnection(null);
             }
         }
@@ -30,10 +31,11 @@ public class DataSourceConfig
         return conn.getConnection();
     }
 
-    private boolean validateConnection(Connection conn) {
+    private boolean validateConnection(ADSConnection adsConnection) {
         try {
+            Connection conn = adsConnection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(VALIDATION_QUERY);
+            ResultSet rs = stmt.executeQuery(adsConnection.getValidation());
             rs.next();
             rs.getInt(1);
             return true;
