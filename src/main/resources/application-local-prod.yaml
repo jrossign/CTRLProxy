@@ -13,9 +13,20 @@ logFolder: logs
 server:
   port: 8081
 
+ads:
+  dossier:
+    uri: jdbc:sap:advantage://192.168.3.4:6262/ctrl/dossier/data/smigg.add;user=AdsExt;password=LectureSeulement
+    validation: select count(1) from "ls01pwem"
+  projet:
+    uri: jdbc:sap:advantage://192.168.3.4:6262/ctrl/projet/data/smigg.add;user=AdsExt;password=LectureSeulement
+    validation: select count(1) from "ls01pwem"
+  produit:
+    uri: jdbc:sap:advantage://192.168.3.4:6262/ctrl/produit/data/smigg.add;user=AdsExt;password=LectureSeulement
+    validation: select count(1) from "ls01pwem"
+
 queries:
   report1:
-    connection: Produit
+    connection: produit
     sql: |
       SELECT IS17DODE.FI16DOCCOD, IS16DOEN.FI16DOCSTA,
              IS17DODE.FI17DOCLIG, IS17DODE.FI17DOCORD,

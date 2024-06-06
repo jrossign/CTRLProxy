@@ -1,74 +1,33 @@
 package com.ipc.ctrlproxy.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.*;
 
 @Slf4j
 @Component
 public class DataSourceConfig
 {
-    String VALIDATION_QUERY = "select count(1) from \"ls01pwem\"";
+    private static final String VALIDATION_QUERY = "select count(1) from \"ls01pwem\"";
 
-    private Connection dossierConnection;
-    private Connection projetConnection;
+    @Autowired
+    private ADSConfig adsConfig;
 
-    public Connection getDossierConnection() throws ClassNotFoundException, SQLException {
-        if (dossierConnection != null) {
-            if (!validateConnection(dossierConnection)) {
-                dossierConnection = null;
+    public Connection getConnection(String name) throws ClassNotFoundException, SQLException {
+        ADSConnection conn = adsConfig.getAds().get(name);
+        if (conn.getConnection() != null) {
+            if (!validateConnection(conn.getConnection())) {
+                conn.setConnection(null);
             }
         }
-        if (dossierConnection == null) {
+        if (conn.getConnection() == null) {
             Class.forName("com.sap.jdbc.advantage.ADSDriver");
-            dossierConnection = DriverManager.getConnection("jdbc:sap:advantage://192.168.3.4:6262/ctrl/dossier/data/smigg.add;user=AdsExt;password=LectureSeulement");
+            conn.setConnection(DriverManager.getConnection(conn.getUri()));
         }
 
-        return dossierConnection;
-    }
-    public Connection getProjetConnection() throws ClassNotFoundException, SQLException {
-        if (projetConnection != null) {
-            if (!validateConnection(projetConnection)) {
-                projetConnection = null;
-            }
-        }
-        if (projetConnection == null) {
-            Class.forName("com.sap.jdbc.advantage.ADSDriver");
-            projetConnection = DriverManager.getConnection("jdbc:sap:advantage://192.168.3.4:6262/ctrl/projet/data/smigg.add;user=AdsExt;password=LectureSeulement");
-        }
-
-        return projetConnection;
-    }
-    public Connection getProduitConnection() throws ClassNotFoundException, SQLException {
-        if (projetConnection != null) {
-            if (!validateConnection(projetConnection)) {
-                projetConnection = null;
-            }
-        }
-        if (projetConnection == null) {
-            Class.forName("com.sap.jdbc.advantage.ADSDriver");
-            projetConnection = DriverManager.getConnection("jdbc:sap:advantage://192.168.3.4:6262/ctrl/produit/data/smigg.add;user=AdsExt;password=LectureSeulement");
-        }
-
-        return projetConnection;
-    }
-
-    public Connection getConnection(String name) throws SQLException, ClassNotFoundException {
-        if ("Produit".equals(name)) {
-            return getProduitConnection();
-        }
-        else if ("Projet".equals(name)) {
-            return getProjetConnection();
-        }
-        else if ("Dossier".equals(name)) {
-            return getDossierConnection();
-        }
-        throw new IllegalArgumentException("Unknown connection name: " + name);
+        return conn.getConnection();
     }
 
     private boolean validateConnection(Connection conn) {

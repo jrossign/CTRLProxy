@@ -26,6 +26,16 @@ public class ReportController
     }
 
     /**
+     * Generic calls, no parameters
+     * @param query
+     * @return
+     */
+    @GetMapping(value = "/api/{query}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String apiNoParams(@PathVariable String query) {
+        return services.generateReport(query, new String[0]);
+    }
+
+    /**
      * Non generic call
      * @param query
      * @param params
