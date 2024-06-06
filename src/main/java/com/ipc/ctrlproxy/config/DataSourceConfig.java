@@ -58,6 +58,19 @@ public class DataSourceConfig
         return projetConnection;
     }
 
+    public Connection getConnection(String name) throws SQLException, ClassNotFoundException {
+        if ("Produit".equals(name)) {
+            return getProduitConnection();
+        }
+        else if ("Projet".equals(name)) {
+            return getProjetConnection();
+        }
+        else if ("Dossier".equals(name)) {
+            return getDossierConnection();
+        }
+        throw new IllegalArgumentException("Unknown connection name: " + name);
+    }
+
     private boolean validateConnection(Connection conn) {
         try {
             Statement stmt = conn.createStatement();
