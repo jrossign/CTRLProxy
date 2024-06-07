@@ -2,15 +2,15 @@ package com.ipc.ctrlproxy.services;
 
 import com.ipc.ctrlproxy.config.DataSourceConfig;
 import com.ipc.ctrlproxy.config.QueryConfig;
-import com.ipc.ctrlproxy.translator.JSonUtils;
 import com.ipc.ctrlproxy.translator.CSVUtils;
+import com.ipc.ctrlproxy.translator.JSonUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -27,15 +27,17 @@ public class ReportServices {
         this.qConfig = qConfig;
     }
 
+    @SneakyThrows
     public String generateJSONReport(String query, String[] params) {
         return generateReport(query, params, JSonUtils::marshallSlim);
     }
 
+    @SneakyThrows
     public String generateCSVReport(String query, String[] params) {
         return generateReport(query, params, CSVUtils::marshall);
     }
 
-    private String generateReport(String query, String[] params, Function<ResultSet, String> marshaller)
+    private String generateReport(String query, String[] params, Function<PreparedStatement, String> marshaller)
     {
         try {
             String connName = qConfig.get(query).getConnection();
@@ -47,7 +49,7 @@ public class ReportServices {
                 for (int i=0; i<params.length; i++) {
                     pstmt.setString(i+1, params[i]);
                 }
-                return marshaller.apply(pstmt.executeQuery()) ;
+                return marshaller.apply(pstmt) ;
             }
 
         } catch (Exception e) {

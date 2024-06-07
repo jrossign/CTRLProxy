@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -26,8 +27,9 @@ public class JSonUtils
     private static ADSConfig config;
 
 
-    public static String marshall(ResultSet resultSet) {
+    public static String marshall(PreparedStatement preparedStatement) {
         try {
+            ResultSet resultSet = preparedStatement.executeQuery();
             List<String> colNames = getCollumnNames(resultSet);
 
             JSONArray result = new JSONArray();
@@ -65,8 +67,9 @@ public class JSonUtils
 
     }
 
-    public static String marshallSlim(ResultSet resultSet) {
-       return DSL.using(config.get("produit").getConnection()).fetch(resultSet).formatJSON();
+    public static String marshallSlim(PreparedStatement preparedStatement) throws SQLException
+    {
+       return DSL.using(preparedStatement.getConnection()).fetch(preparedStatement.executeQuery()).formatJSON();
     }
 
 
