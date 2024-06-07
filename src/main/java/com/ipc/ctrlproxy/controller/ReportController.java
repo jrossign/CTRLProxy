@@ -2,10 +2,12 @@ package com.ipc.ctrlproxy.controller;
 
 import com.ipc.ctrlproxy.services.ReportServices;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -16,7 +18,7 @@ public class ReportController
     private ReportServices services;
 
     /**
-     * Generic calls
+     * Generic calls CSV returns
      * @param query
      * @param params
      * @return PainText
@@ -27,7 +29,7 @@ public class ReportController
     }
 
     /**
-     * Generic calls
+     * Generic calls JSON return
      * @param query
      * @param params
      * @return JSON
@@ -38,7 +40,7 @@ public class ReportController
     }
 
     /**
-     * Generic calls, no parameters
+     * Generic calls, no parameters, CSV returns
      * @param query
      * @return PlainText
      */
@@ -48,7 +50,7 @@ public class ReportController
     }
 
     /**
-     * Generic calls, no parameters
+     * Generic calls, no parameters, JSON return
      * @param query
      * @return JSON
      */

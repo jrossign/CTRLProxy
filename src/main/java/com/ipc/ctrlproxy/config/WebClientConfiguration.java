@@ -48,10 +48,16 @@ public class WebClientConfiguration
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 30000)
                 .responseTimeout(Duration.ofSeconds(30))
                 .doOnRequest((req, conn) -> {
-                    req = req;
+                    log.info("Sending request to " + BASE_URL);
                 })
                 .doOnConnect(req -> {
-                    req = req;
+                    log.info("Connecting to " + BASE_URL);
+                })
+                .doOnConnected(req -> {
+                    log.info("Connected to " + BASE_URL);
+                })
+                .doOnResponse((resp, conn) -> {
+                    log.info("Received response from " + BASE_URL);
                 })
                 .wiretap("reactor.netty.http.client.HttpClient",
                         LogLevel.INFO, AdvancedByteBufFormat.TEXTUAL)
@@ -60,7 +66,7 @@ public class WebClientConfiguration
 
 
 
-        WebClient client = WebClient
+        return WebClient
                 .builder()
                 .baseUrl(BASE_URL)
                 .uriBuilderFactory(factory)
@@ -78,8 +84,6 @@ public class WebClientConfiguration
                     //exchangeFilterFunctions.add(renderApiErrorResponse());
                 })
                 .build();
-
-        return client;
 
 
     }
@@ -106,20 +110,16 @@ public class WebClientConfiguration
         return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
             if (clientResponse.statusCode().isError()) {
                 return clientResponse.bodyToMono(String.class)
-                    .flatMap(errorBody -> {
-                        return Mono.error(new CRTLException( Status.builder()
-                                .status("2")
-                                .messageHeader(Arrays.asList(
-                                        Message.builder().type("E").message("StatusCode : " + clientResponse.statusCode().value()).build(),
-                                        Message.builder().type("E").message("Body : " + errorBody).build()))
-                                .build()));
-                    });
+                    .flatMap(errorBody -> Mono.error(new CRTLException( Status.builder()
+                            .status("2")
+                            .messageHeader(Arrays.asList(
+                                    Message.builder().type("E").message("StatusCode : " + clientResponse.statusCode().value()).build(),
+                                    Message.builder().type("E").message("Body : " + errorBody).build()))
+                            .build())));
             }
             else {
                 return clientResponse.bodyToMono(String.class)
-                        .flatMap(responseBody -> {
-                            return Mono.just(clientResponse.mutate().body(getStatus(clientResponse.statusCode().value(), responseBody)).build());
-                        });
+                        .flatMap(responseBody -> Mono.just(clientResponse.mutate().body(getStatus(clientResponse.statusCode().value(), responseBody)).build()));
             }
         });
 

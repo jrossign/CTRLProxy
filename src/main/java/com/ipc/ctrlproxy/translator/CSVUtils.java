@@ -15,7 +15,7 @@ public class CSVUtils
     public static String marshall(ResultSet rSet) {
         try {
             StringWriter sw = new StringWriter();
-            BufferedWriter bw = new BufferedWriter(sw);
+            BufferedWriter bw = new BufferedWriter(sw, 32768);
             CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('|').build().withHeader(rSet);
             CSVPrinter csvPrinter = new CSVPrinter(bw, format);
             csvPrinter.printRecords(rSet);

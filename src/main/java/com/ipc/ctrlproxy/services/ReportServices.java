@@ -35,7 +35,7 @@ public class ReportServices {
         return generateReport(query, params, CSVUtils::marshall);
     }
 
-    private String generateReport(String query, String[] params, Function<ResultSet, String> rSetConsumer)
+    private String generateReport(String query, String[] params, Function<ResultSet, String> marshaller)
     {
         try {
             String connName = qConfig.get(query).getConnection();
@@ -47,7 +47,7 @@ public class ReportServices {
                 for (int i=0; i<params.length; i++) {
                     pstmt.setString(i+1, params[i]);
                 }
-                return rSetConsumer.apply(pstmt.executeQuery()) ;
+                return marshaller.apply(pstmt.executeQuery()) ;
             }
 
         } catch (Exception e) {
