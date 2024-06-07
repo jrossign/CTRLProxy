@@ -38,9 +38,9 @@ public class ReportServices {
     private String generateReport(String query, String[] params, Function<ResultSet, String> rSetConsumer)
     {
         try {
-            String connName = qConfig.getQueries().get(query).getConnection();
+            String connName = qConfig.get(query).getConnection();
             Connection conn = dbConfig.getConnection(connName);
-            String sql = qConfig.getQueries().get(query).getSql();
+            String sql = qConfig.get(query).getSql();
             log.info("Running {} with params {} on DB {}\n{}", query, Arrays.asList(params).toString(), connName, sql);
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -52,7 +52,6 @@ public class ReportServices {
 
         } catch (Exception e) {
             log.error("ERROR", e);
-            e.printStackTrace();
             return "ERROR: " + e.toString();
         }
     }

@@ -9,4 +9,5 @@ import java.util.Map;
 @ConfigurationProperties
 public class QueryConfig {
     private Map<String, QueryDefinition> queries;
+    public QueryDefinition get(String queryName) {return queries.get(queryName);}
 }

@@ -21,7 +21,7 @@ public class ReportController
      * @param params
      * @return PainText
      */
-    @GetMapping(value = "/api/{query}/{params}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/api/{query}/{params}", produces = { MediaType.TEXT_PLAIN_VALUE, "text/csv" })
     public String apiText(@PathVariable String query, @PathVariable String[] params) {
         return services.generateCSVReport(query, params);
     }
@@ -42,7 +42,7 @@ public class ReportController
      * @param query
      * @return PlainText
      */
-    @GetMapping(value = "/api/{query}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/api/{query}", produces = { MediaType.TEXT_PLAIN_VALUE, "text/csv" })
     public String apiTextNoParams(@PathVariable String query) {
         return services.generateCSVReport(query, new String[0]);
     }
