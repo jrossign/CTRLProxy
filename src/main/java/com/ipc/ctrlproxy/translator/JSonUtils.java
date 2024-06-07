@@ -2,6 +2,7 @@ package com.ipc.ctrlproxy.translator;
 
 
 import com.ipc.ctrlproxy.config.ADSConfig;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.impl.DSL;
 import org.json.JSONArray;
@@ -67,7 +68,8 @@ public class JSonUtils
 
     }
 
-    public static String marshallSlim(PreparedStatement preparedStatement) throws SQLException
+    @SneakyThrows
+    public static String marshallSlim(PreparedStatement preparedStatement)
     {
        return DSL.using(preparedStatement.getConnection()).fetch(preparedStatement.executeQuery()).formatJSON();
     }

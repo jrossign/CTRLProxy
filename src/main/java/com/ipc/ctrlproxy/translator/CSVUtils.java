@@ -1,5 +1,6 @@
 package com.ipc.ctrlproxy.translator;
 
+import lombok.SneakyThrows;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
@@ -13,7 +14,8 @@ import java.sql.SQLException;
 public class CSVUtils
 {
 
-    public static String marshall(PreparedStatement preparedStatement) throws IOException, SQLException
+    @SneakyThrows
+    public static String marshall(PreparedStatement preparedStatement)
     {
         ResultSet rSet = preparedStatement.executeQuery();
         StringWriter sw = new StringWriter();
