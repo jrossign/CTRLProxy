@@ -19,13 +19,19 @@ public class ReportController
      * Generic calls
      * @param query
      * @param params
-     * @return
+     * @return PainText
      */
     @GetMapping(value = "/api/{query}/{params}", produces = MediaType.TEXT_PLAIN_VALUE)
     public String apiText(@PathVariable String query, @PathVariable String[] params) {
         return services.generateCSVReport(query, params);
     }
 
+    /**
+     * Generic calls
+     * @param query
+     * @param params
+     * @return JSON
+     */
     @GetMapping(value = "/api/{query}/{params}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String apiJson(@PathVariable String query, @PathVariable String[] params) {
         return services.generateJSONReport(query, params);
@@ -34,13 +40,18 @@ public class ReportController
     /**
      * Generic calls, no parameters
      * @param query
-     * @return
+     * @return PlainText
      */
     @GetMapping(value = "/api/{query}", produces = MediaType.TEXT_PLAIN_VALUE)
     public String apiTextNoParams(@PathVariable String query) {
         return services.generateCSVReport(query, new String[0]);
     }
 
+    /**
+     * Generic calls, no parameters
+     * @param query
+     * @return JSON
+     */
     @GetMapping(value = "/api/{query}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String apiJsonNoParams(@PathVariable String query) {
         return services.generateJSONReport(query, new String[0]);
