@@ -10,4 +10,7 @@ import java.util.Map;
 public class ADSConfig {
 
     private Map<String, ADSConnection> ads;
+    public ADSConnection get(String name) {
+        return ads.get(name);
+    }
 }

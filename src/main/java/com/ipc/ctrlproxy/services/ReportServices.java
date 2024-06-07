@@ -28,7 +28,7 @@ public class ReportServices {
     }
 
     public String generateJSONReport(String query, String[] params) {
-        return generateReport(query, params, JSonUtils::marshall);
+        return generateReport(query, params, JSonUtils::marshallSlim);
     }
 
     public String generateCSVReport(String query, String[] params) {

@@ -41,6 +41,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.apache.commons:commons-csv:1.11.0")
     implementation("com.google.code.gson:gson")
+    implementation("org.jooq:jooq:3.19.9")
     implementation("org.jsonschema2pojo:jsonschema2pojo-core:1.2.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("org.apache.poi:poi:5.2.5")
