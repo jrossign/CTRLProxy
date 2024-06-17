@@ -8,9 +8,11 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -37,25 +39,22 @@ public class ReportServices {
         return generateReport(query, params, CSVUtils::marshall);
     }
 
-    private String generateReport(String query, String[] params, Function<PreparedStatement, String> marshaller)
-    {
-        try {
-            String connName = qConfig.get(query).getConnection();
-            Connection conn = dbConfig.getConnection(connName);
-            String sql = qConfig.get(query).getSql();
-            log.info("Running {} with params {} on DB {}\n{}", query, Arrays.asList(params).toString(), connName, sql);
+    private String generateReport(String query, String[] params, Function<PreparedStatement, String> marshaller) throws SQLException, ClassNotFoundException {
 
-            try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
-                for (int i=0; i<params.length; i++) {
-                    pstmt.setString(i+1, params[i]);
-                }
-                return marshaller.apply(pstmt) ;
+        Assert.notNull(qConfig.get(query), "Query not found: " + query);
+        String connName = qConfig.get(query).getConnection();
+        Assert.notNull(dbConfig.getConnection(connName), "Connection not found: " + connName);
+        Connection conn = dbConfig.getConnection(connName);
+        String sql = qConfig.get(query).getSql();
+        log.info("Running {} with params {} on DB {}\n{}", query, Arrays.asList(params).toString(), connName, sql);
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            for (int i=0; i<params.length; i++) {
+                pstmt.setString(i+1, params[i]);
             }
-
-        } catch (Exception e) {
-            log.error("ERROR", e);
-            return "ERROR: " + e.toString();
+            return marshaller.apply(pstmt) ;
         }
+
     }
 
 }

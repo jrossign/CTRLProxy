@@ -165,10 +165,10 @@ public class CTRLWebServices implements InitializingBean  {
         SimpleBeanPropertyFilter actionTypeFilter = SimpleBeanPropertyFilter.serializeAllExcept("actionType");
         filters = new SimpleFilterProvider().addFilter("actionTypeFilter", actionTypeFilter);
 
-        logJson(mapper.writeValueAsString(getAllCTRLOrderHeaders()));
-        logJson(mapper.writeValueAsString(getAllCTRLReceiptHeaders("BSP00281")));
-        logJson(mapper.writeValueAsString(getAllCTRLOrders("BSP00281")));
-        logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00281")));
+        //logJson(mapper.writeValueAsString(getAllCTRLOrderHeaders()));
+        //logJson(mapper.writeValueAsString(getAllCTRLReceiptHeaders("BSP00281")));
+        //logJson(mapper.writeValueAsString(getAllCTRLOrders("BSP00281")));
+        //logJson(mapper.writeValueAsString(getAllCTRLReceipt("BSP00281")));
 
 
     }

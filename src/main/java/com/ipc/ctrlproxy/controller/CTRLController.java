@@ -1,6 +1,7 @@
 package com.ipc.ctrlproxy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipc.ctrlproxy.model.status.Message;
 import com.ipc.ctrlproxy.model.status.Status;
 import com.ipc.ctrlproxy.model.steel_del.SPDelivery;
 import com.ipc.ctrlproxy.model.steel_po.SPOrder;
@@ -12,11 +13,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -91,6 +95,17 @@ public class CTRLController
             log.info(msg + System.lineSeparator() + mapper.writeValueAsString(obj));
         }
         catch (Exception e) {}
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<Status> handleException(Exception e) {
+        return new ResponseEntity<>(Status.builder()
+                .status("2")
+                .messageHeader(Arrays.asList(
+                        Message.builder().type("E").message("StatusCode : " + HttpStatus.INTERNAL_SERVER_ERROR).build(),
+                        Message.builder().type("E").message("Body : " + e.getMessage()).build()))
+                .build(), HttpStatus.OK);
     }
 
 }

@@ -41,7 +41,7 @@ public class DataSourceConfig
             return true;
         }
         catch (Throwable t) {
-            log.error("Connection not valid anymore", t);
+            log.error("{} connection not valid anymore", adsConnection.getUri(), t);
             return false;
         }
     }

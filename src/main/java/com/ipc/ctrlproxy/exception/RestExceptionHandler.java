@@ -12,18 +12,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Arrays;
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+//@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler
 {
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<Status> handleException(Exception e) {
-        return new ResponseEntity<>(Status.builder()
-                .status("2")
-                .messageHeader(Arrays.asList(
-                        Message.builder().type("E").message("StatusCode : " + HttpStatus.INTERNAL_SERVER_ERROR).build(),
-                        Message.builder().type("E").message("Body : " + e.getMessage()).build()))
-                .build(), HttpStatus.OK);
-    }
+
 
 }
