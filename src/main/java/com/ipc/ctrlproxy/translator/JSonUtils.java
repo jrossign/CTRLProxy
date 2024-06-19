@@ -8,7 +8,6 @@ import org.jooq.impl.DSL;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -23,8 +22,6 @@ import java.util.stream.IntStream;
 @Component
 public class JSonUtils
 {
-
-    @Autowired
     private static ADSConfig config;
 
 

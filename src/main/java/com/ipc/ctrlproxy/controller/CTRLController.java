@@ -12,6 +12,7 @@ import com.ipc.ctrlproxy.translator.SteelPOToCTRLTranslator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +54,8 @@ public class CTRLController
             last = orderServices.syncHeaderAndDetails(
                     order.getActionType(),
                     poTranslator.getCTRLHeader(order, action),
-                    poTranslator.getCTRLDetails(order, action));
+                    poTranslator.getCTRLDetails(order, action),
+                    StringUtils.leftPad(order.getPurchasingOrganization(), 3, '0'));
         }
 
         log("SP_ORDERS response (" + (System.currentTimeMillis()-start) + " millis)", last);
@@ -71,7 +73,8 @@ public class CTRLController
             last = receiveServices.receive(
                     delivery.getOrderNumber(),
                     deliveryTranslator.getCTRLProductionRequest(delivery),
-                    deliveryTranslator.getCTRLDetails(delivery, action));
+                    deliveryTranslator.getCTRLDetails(delivery, action),
+                    StringUtils.leftPad(delivery.getPurchasingOrganization(), 3, '0'));
         }
 
         log("SP_RECEIVING response (" + (System.currentTimeMillis()-start) + " millis)", last);

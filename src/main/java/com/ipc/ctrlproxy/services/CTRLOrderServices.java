@@ -30,7 +30,7 @@ public class CTRLOrderServices implements CTRLServices {
     @Autowired
     private StatusHelper statusHelper;
 
-    public Status syncHeaderAndDetails(final String actionType, final Header header, final List<Details> details) throws IOException {
+    public Status syncHeaderAndDetails(final String actionType, final Header header, final List<Details> details, final String purchasingOrg) throws IOException {
         List<MessageItem> responses = new ArrayList<>();
         boolean success = true;
 
@@ -46,13 +46,15 @@ public class CTRLOrderServices implements CTRLServices {
             log.info("Entête déjà créée, creation des détails...");
         }
         else {
-            CTRLResponse resp = webServices.post("DocumentEntete//?Company=001", header);
+            CTRLResponse resp = webServices.post("DocumentEntete//?Company=" + purchasingOrg, header);
             success = success && statusHelper.buildMessageItems("Création de l'entête", resp.code, resp.body, responses);
             allHeaders = webServices.getAllCTRLOrderHeaders();
         }
 
         if (success) {
 
+
+            String companySuffix = "//?Company="+ purchasingOrg;
 
             // Get CTRL details for this order mapped by line description
             Map<String, List<Details>> ctrlByLineDesc = webServices.getAllCTRLOrders(header.getDocument());
@@ -64,7 +66,7 @@ public class CTRLOrderServices implements CTRLServices {
             for (String key : ctrlByLineDesc.keySet()) {
                 if (!steelByLineDesc.containsKey(key)) {
                     for (Details detail : ctrlByLineDesc.get(key)) {
-                        CTRLResponse resp = webServices.delete("DocumentDetail/" + detail.getIdentifiantUnique() + "//?Company=001");
+                        CTRLResponse resp = webServices.delete("DocumentDetail/" + detail.getIdentifiantUnique() + companySuffix);
                         success = success && statusHelper.buildMessageItems("Delete d'un détail", resp.code, resp.body, responses);
                     }
                 }
@@ -74,7 +76,7 @@ public class CTRLOrderServices implements CTRLServices {
             for (String key : steelByLineDesc.keySet()) {
                 if (!ctrlByLineDesc.containsKey(key)) {
                     for (Details detail : steelByLineDesc.get(key)) {
-                        CTRLResponse resp = webServices.post( "DocumentDetail//?Company=001", detail);
+                        CTRLResponse resp = webServices.post( "DocumentDetail//?Company=" + purchasingOrg, detail);
                         success = success && statusHelper.buildMessageItems("Création d'un détail", resp.code, resp.body, responses);
                     }
                 }
@@ -94,7 +96,7 @@ public class CTRLOrderServices implements CTRLServices {
                             if (!identical) {
                                 resetForUpdate(steelDetail, ctrlBest);
                                 log.info(mapper.writeValueAsString(steelDetail));
-                                CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001", steelDetail);
+                                CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + companySuffix, steelDetail);
                                 success = success && statusHelper.buildMessageItems("Update d'un détail", resp.code, resp.body, responses);
                             } else {
                                 String msg = "Ligne " + ctrlBest.getLigne() + " déjà à jour pour le document " + header.getDocument();
@@ -112,7 +114,7 @@ public class CTRLOrderServices implements CTRLServices {
                     // If anything left in CTRL, delete it
                     if (!ctrlDetails.isEmpty()) {
                         for (Details ctrlDetail : ctrlDetails) {
-                            CTRLResponse resp = webServices.delete("DocumentDetail/" + ctrlDetail.getIdentifiantUnique() + "//?Company=001");
+                            CTRLResponse resp = webServices.delete("DocumentDetail/" + ctrlDetail.getIdentifiantUnique() + companySuffix);
                             success = success && statusHelper.buildMessageItems("Delete d'un détail", resp.code, resp.body, responses);
                         }
                     }
@@ -120,7 +122,7 @@ public class CTRLOrderServices implements CTRLServices {
             }
             if ("D".equalsIgnoreCase(actionType)) {
                 Header ctrlHeader = allHeaders.get(header.getDocument());
-                CTRLResponse resp = webServices.delete("DocumentEntete/" + ctrlHeader.getIdentifiantUnique() + "//?Company=001");
+                CTRLResponse resp = webServices.delete("DocumentEntete/" + ctrlHeader.getIdentifiantUnique() + companySuffix);
                 success = success && statusHelper.buildMessageItems("Delete de l'entête", resp.code, resp.body, responses);
             }
         }

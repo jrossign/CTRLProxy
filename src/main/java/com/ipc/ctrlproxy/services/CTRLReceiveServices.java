@@ -29,7 +29,7 @@ public class CTRLReceiveServices implements CTRLServices {
     @Autowired
     private StatusHelper statusHelper;
 
-    public Status receive(final String document, Production pRequest, final List<Details> details) throws IOException {
+    public Status receive(final String document, Production pRequest, final List<Details> details, String purchasingOrg) throws IOException {
 
         List<MessageItem> responses = new ArrayList<>();
         boolean success = true;
@@ -53,6 +53,7 @@ public class CTRLReceiveServices implements CTRLServices {
 
         // Map Steel details by line description
         Map<String, List<Details>> steelByLineDesc = groupByDescription(details);
+        String companySuffix = "//?Company="+ purchasingOrg;
 
         // Update CTRL header if not already in ACT state
         if ( !"ACT".equals(header.getStatut())) {
@@ -63,7 +64,7 @@ public class CTRLReceiveServices implements CTRLServices {
                     .statut("ACT")
                     .build();
             log.info(mapper.writeValueAsString(update));
-            CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + "//?Company=001", update);
+            CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + companySuffix, update);
             success = success && statusHelper.buildMessageItems("Update en ACT d'un header", resp.code, resp.body, responses);
         }
         else {
@@ -83,7 +84,7 @@ public class CTRLReceiveServices implements CTRLServices {
                             Details ctrlBest = removeBestOrder(ctrlDetails, steelDetail);
                             resetForReceive(steelDetail, ctrlBest);
                             log.info("Sending RECEIVE: {}", mapper.writeValueAsString(steelDetail));
-                            CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001", steelDetail);
+                            CTRLResponse resp = webServices.put("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + companySuffix, steelDetail);
                             log.info(mapper.writeValueAsString(resp));
                             success = success && statusHelper.buildMessageItems("Réception d'un détail", resp.code, resp.body, responses);
                         }
@@ -93,7 +94,7 @@ public class CTRLReceiveServices implements CTRLServices {
                     }
                     else if ("D".equalsIgnoreCase(steelDetail.getActionType())) {
                         Details ctrlBest = removeBestReceip(ctrlReceipts, steelDetail);
-                        CTRLResponse resp = webServices.delete("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + "//?Company=001");
+                        CTRLResponse resp = webServices.delete("DocumentDetail/" + ctrlBest.getIdentifiantUnique() + companySuffix);
                         success = success && statusHelper.buildMessageItems("Renversement d'une réception d'un détail", resp.code, resp.body, responses);
                     }
                     else {
@@ -110,7 +111,7 @@ public class CTRLReceiveServices implements CTRLServices {
         // Send Production request
         if (success) {
             log.info("Production : {}", mapper.writeValueAsString(pRequest));
-            CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + "/Production?Company=001", pRequest);
+            CTRLResponse resp = webServices.put("DocumentEntete/" + header.getIdentifiantUnique() + "/Production?Company=" + purchasingOrg, pRequest);
             success = success && statusHelper.buildMessageItems("Production", resp.code, resp.body, responses);
         }
 
